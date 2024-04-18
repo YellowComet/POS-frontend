@@ -4,12 +4,44 @@ import link from './../../assets/img/link.png';
 import Sidebar from "./../partials/Sidebar";
 import Footer from "./../partials/Footer";
 import {Outlet} from "react-router-dom";
+import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const Master = () => {
 
     const handleSidebar = () => {
         $("body").toggleClass("sidebar-toggled");
         $(".sidebar").toggleClass("toggled");
+    }
+
+    const handleLogout = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will be logout!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Logout!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "Logout!",
+                text: "Your session has ended.",
+                icon: "success"
+              });
+              axios.post('http://localhost:8000/api/logout').then(res=>{
+                localStorage.removeItem('email');
+                localStorage.removeItem('name');
+                localStorage.removeItem('photo');
+                localStorage.removeItem('phone');
+                localStorage.removeItem('token');
+                window.location.reload()
+            }).catch(errors => {
+                
+            })
+            }
+          });
     }
 
     return (
@@ -196,10 +228,12 @@ const Master = () => {
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                {/* <button onClick={handleLogout} class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"> */}
+                                <button onClick={handleLogout} class="dropdown-item">
+
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
-                                </a>
+                                </button>
                             </div>
                         </li>
 
