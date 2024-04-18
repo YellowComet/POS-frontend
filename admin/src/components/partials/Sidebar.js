@@ -110,7 +110,6 @@ const Sidebar = () => {
           <button onClick={() => { clickMenuOpen() }} className="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
 
-
         </ul>
 
     );

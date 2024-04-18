@@ -6,6 +6,8 @@ import Footer from "./../partials/Footer";
 import {Outlet} from "react-router-dom";
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import Constants from '../../Constants';
+import GlobalFunction from '../../GlobalFunction';
 
 const Master = () => {
 
@@ -30,15 +32,11 @@ const Master = () => {
                 text: "Your session has ended.",
                 icon: "success"
               });
-              axios.post('http://localhost:8000/api/logout').then(res=>{
-                localStorage.removeItem('email');
-                localStorage.removeItem('name');
-                localStorage.removeItem('photo');
-                localStorage.removeItem('phone');
-                localStorage.removeItem('token');
+              axios.post(`${Constants.BASE_URL}/logout`).then(res=>{
+                GlobalFunction.logOut()
                 window.location.reload()
             }).catch(errors => {
-                
+                GlobalFunction.logOut()
             })
             }
           });
@@ -209,7 +207,7 @@ const Master = () => {
                         <li className="nav-item dropdown no-arrow">
                             <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span className="mr-2 d-none d-lg-inline text-gray-600 small">Diego Miret Halffter</span>
+                                <span className="mr-2 d-none d-lg-inline text-gray-600 small">{localStorage.name !== undefined ? localStorage.name : null}</span>
                                 <img className="img-profile rounded-circle"
                                     src={link}/>
                             </a>

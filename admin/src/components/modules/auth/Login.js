@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import {useNavigate} from 'react-router-dom';
+import Constants from '../../../Constants';
 
 const Login = () => {
 
-    // const navigate = useNavigate();
     const [input, setInput] = useState({});
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +13,7 @@ const Login = () => {
 
     const handleLogin =  () => {
         setIsLoading(true);
-        axios.post('http://localhost:8000/api/login', input).then(res=>{
+        axios.post(`${Constants.BASE_URL}/login`, input).then(res=>{
             localStorage.email = res.data.email
             localStorage.name = res.data.name
             localStorage.photo = res.data.photo
