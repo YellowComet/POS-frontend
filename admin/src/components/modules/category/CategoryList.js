@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PageHead from '../../partials/PageHead';
 import CardHeader from "../../partials/miniComponent/CardHeader";
+import Constants from '../../../Constants';
+import axios from 'axios';
 
 const CategoryList = () => {
+
+    const [categories, setCategories] = useState([]);
+
+    const getCategories = () => {
+        axios.get(`${Constants.BASE_URL}/category`).then(res=>{
+            console.log(res.data)
+        })
+    }
+
+    useEffect(()=>{
+        getCategories()
+    })
+
     return (
         <>
             <PageHead title={'Category'} title2={'Category List'} pageTitle={'Category List'}/>
@@ -19,19 +34,29 @@ const CategoryList = () => {
                         </div>
                         <div className='card-body'>
                             <div className='table-responsive'>
-                                <table className={'table table-hover table-striped table-bordered'}>
+                                <table className={'my-table table table-hover table-striped table-bordered'}>
                                     <thead>
                                         <tr>
                                             <th>SL</th>
-                                            <th>Name</th>
-                                            <th>Slug</th>
-                                            <th>Serial</th>
-                                            <th>Status</th>
+                                            <th>Name / Slug</th>
+                                            <th>Serial / Status</th>
+                                            <th>Photo</th>
                                             <th>Created By</th>
                                             <th>Created At</th>
-                                            <th>Updated At</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>SL</td>
+                                            <td>Name / Slug</td>
+                                            <td>Serial / Status</td>
+                                            <td>Photo</td>
+                                            <td>Created By</td>
+                                            <td>Created At</td>
+                                            <td>Action</td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

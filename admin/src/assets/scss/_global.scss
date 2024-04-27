@@ -78,3 +78,10 @@ a {
   aspect-ratio: 1/1 !important;
   object-fit: cover;
 }
+
+.my-table {
+  font-size: 14px;
+  th, td{
+    vertical-align: middle;
+  }
+}
