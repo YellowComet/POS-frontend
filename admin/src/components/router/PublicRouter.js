@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Login from '../modules/auth/Login';
 import AuthLayout from '../layout/AuthLayout';
 import Error500 from '../modules/Error500';
+import AddCategory from '../modules/category/AddCategory';
 
 const PublicRouter = createBrowserRouter([
     {

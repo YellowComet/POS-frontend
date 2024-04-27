@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
 
@@ -21,28 +22,28 @@ const Sidebar = () => {
         <hr className="sidebar-divider my-0"/>
 
         <li className="nav-item active">
-            <a className="nav-link" href="index.html">
+            <Link className="nav-link" to="/">
                 <i className="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
+                <span>Dashboard</span></Link>
         </li>
 
         <hr className="sidebar-divider"/>
 
         <div className="sidebar-heading">
-            Interface
+            Management
         </div>
 
         <li className="nav-item">
             <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                 aria-expanded="true" aria-controls="collapseTwo">
                 <i className="fas fa-fw fa-cog"></i>
-                <span>Components</span> <i className="fas fa-angle-down"></i>
+                <span>Categories</span> <i className="fas fa-angle-down"></i>
             </a>
             <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                 <div className="bg-white py-2 collapse-inner rounded">
                     <h6 className="collapse-header">Custom Components:</h6>
-                    <a className="collapse-item" href="buttons.html">Buttons</a>
-                    <a className="collapse-item" href="cards.html">Cards</a>
+                    <Link className="collapse-item" to="/category">Category List</Link>
+                    <Link className="collapse-item" to="/category/create">Add Category</Link>
                 </div>
             </div>
         </li>

@@ -3,6 +3,8 @@ import { createBrowserRouter } from 'react-router-dom';
 import Dashboard from '../modules/Dashboard';
 import Master from '../layout/Master';
 import Error500 from '../modules/Error500';
+import AddCategory from '../modules/category/AddCategory';
+import CategoryList from '../modules/category/CategoryList';
 
 const PageRouter = createBrowserRouter([
     {
@@ -12,6 +14,14 @@ const PageRouter = createBrowserRouter([
         {
           path: '/',
           element: <Dashboard />,
+        },
+        {
+          path: '/category',
+          element: <CategoryList />,
+        },
+        {
+          path: '/category/create',
+          element: <AddCategory />,
         },
         {
           path: '/error-500',

@@ -58,3 +58,23 @@ a {
     font-weight: 800;
   }
 }
+
+.text-theme{
+  color: $theme-color;
+}
+
+.theme-button{
+  a{
+    color: white;
+    text-decoration:none;
+  }
+}
+
+.aspect-two{
+  aspect-ratio: 1/1.25 !important;
+}
+
+.aspect-one{
+  aspect-ratio: 1/1 !important;
+  object-fit: cover;
+}

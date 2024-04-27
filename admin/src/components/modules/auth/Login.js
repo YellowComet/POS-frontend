@@ -22,8 +22,8 @@ const Login = () => {
             setIsLoading(false);
             window.location.reload()
         }).catch(errors => {
+            setIsLoading(false);
             if(errors.response.status === 422){
-                setIsLoading(false);
                 const $prueba = errors.response.data.errors;
                 setErrors($prueba);
             }

@@ -11269,3 +11269,8 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+
+.login-error-msg {
+  color: red;
+  text-shadow: 0 0 8px white;
+}
