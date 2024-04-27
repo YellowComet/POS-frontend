@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { redirect } from 'react-router-dom';
 import GlobalFunction from './GlobalFunction';
 
 axios.interceptors.request.use(function (config) {
@@ -22,7 +21,7 @@ axios.interceptors.response.use(function (response) {
         if(error.response.status === 401){
           GlobalFunction.logOut()
         }else if (error.response.status === 500){
-            redirect('/error-500')
+            window.location.href = window.Location.origin + '/error-500'
         }
     return Promise.reject(error);
   });

@@ -3,15 +3,23 @@ import PageHead from '../../partials/PageHead';
 import CardHeader from "../../partials/miniComponent/CardHeader";
 import Constants from '../../../Constants';
 import axios from 'axios';
+import CategoryPhotoModal from '../../partials/modals/CategoryPhotoModal';
 
 const CategoryList = () => {
 
     const [categories, setCategories] = useState([]);
+    const [modalShow, setModalShow] = useState(false);
+    const [modalPhoto, setModalPhoto] = useState('');
 
     const getCategories = () => {
         axios.get(`${Constants.BASE_URL}/category`).then(res=>{
-            console.log(res.data)
+            setCategories(res.data.data);
         })
+    }
+
+    const handlePhotoModal = (photo) => {
+        setModalPhoto(photo);
+        setModalShow(true);
     }
 
     useEffect(()=>{
@@ -47,17 +55,41 @@ const CategoryList = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>SL</td>
-                                            <td>Name / Slug</td>
-                                            <td>Serial / Status</td>
-                                            <td>Photo</td>
-                                            <td>Created By</td>
-                                            <td>Created At</td>
-                                            <td>Action</td>
-                                        </tr>
+                                        {categories.map((category, index)=>(
+                                            <tr>
+                                                <td>{++index}</td>
+                                                <td>
+                                                    <p>Name: {category.name}</p>
+                                                    <p>Slug: {category.slug}</p>
+                                                </td>
+                                                <td>
+                                                    <p className={'text-theme'}>Serial: {category.serial}</p>
+                                                    <p className={'text-success'}>Status: {category.status}</p>
+                                                </td>
+                                                <td>
+                                                    <img 
+                                                        onClick={()=>handlePhotoModal(category.photo_full)}
+                                                        src={category.photo} alt={category.name}
+                                                        className={'img-thumbnail table-image'}
+                                                    />
+                                                </td>
+                                                <td>{category.created_by}</td>
+                                                <td>
+                                                    <p><small>Created: {category.created_at}</small></p>
+                                                    <p><small>Updated: {category.updated_at}</small></p>
+                                                </td>
+                                                <td>Action</td>
+                                            </tr>
+                                        ))}
                                     </tbody>
                                 </table>
+                                <CategoryPhotoModal
+                                    show={modalShow}
+                                    onHide={() => setModalShow(false)}
+                                    tittle={'Category Photo'}
+                                    size={''}
+                                    photo={modalPhoto}
+                                />
                             </div>
                         </div>
                     </div>
