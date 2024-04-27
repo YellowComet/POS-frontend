@@ -90,3 +90,13 @@ a {
   width: 75px;
   cursor: pointer;
 }
+
+.search-area{
+  label{
+    font-size: 14px;
+    color: $theme-color;
+    p{
+      margin-bottom: 5px;
+    }
+  }
+}

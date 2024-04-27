@@ -8,15 +8,19 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+
 
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @param Request $request
+     * @return AnonymousResourceCollection
      */
-    public function index()
+    final public function index(Request $request):AnonymousResourceCollection
     {
-        $categories = (new Category())->getAllCategories();
+        $categories = (new Category())->getAllCategories($request->all());
         return CategoryListResource::collection($categories);
     }
 

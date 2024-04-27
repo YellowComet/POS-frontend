@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class Category extends Model
@@ -26,15 +27,29 @@ class Category extends Model
         return self::query()->create($input);
     }
 
-    final public function getAllCategories()
+    /**
+     * @param array $input
+     * @return LengthAwarePaginator
+     */
+    final public function getAllCategories(array $input):LengthAwarePaginator
     {
-        return self::query()->with('user:id,name')->orderBy('serial', 'asc')->get();
+        $per_page = $input['per_page'] ?? 5;
+        $direction = $input['direction'] ?? 'asc';
+        $query = self::query();
+
+        if(!empty($input['search'])){
+            $query->where('name','like','%'. $input['search'] .'%');
+        }
+        if(!empty($input['order_by'])){
+            $query->orderBy($input['order_by'], $direction);
+        }
+        return $query->with('user:id,name')->paginate($per_page);
     }
 
     /**
      * @return BelongsTo
      */
-    public function user():BelongsTo
+    final public function user():BelongsTo
     {
         return $this->belongsTo(User::class);
     }
