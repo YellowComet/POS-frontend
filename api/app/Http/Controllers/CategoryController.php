@@ -10,7 +10,7 @@ use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-
+use Illuminate\Http\JsonResponse;
 
 class CategoryController extends Controller
 {
@@ -65,10 +65,16 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @param Category $category
+     * @return JsonResponse
      */
-    public function destroy(Category $category)
+    final public function destroy(Category $category):JsonResponse
     {
-        //
+        if(!empty($category->photo)){
+            ImagesManager::deleteImage(Category::IMAGE_UPLOAD_PATH, $category->photo);
+            ImagesManager::deleteImage(Category::THUMB_IMAGE_UPLOAD_PATH, $category->photo);
+        }
+        $category->delete();
+        return response()->json(['msg'=>'Category Deleted Successfully','cls'=>'warning']);
     }
 }

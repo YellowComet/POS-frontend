@@ -7,6 +7,8 @@ import CategoryPhotoModal from '../../partials/modals/CategoryPhotoModal';
 import Pagination from 'react-js-pagination';
 import {Link} from 'react-router-dom';
 import CategoryDetailsModal from '../../partials/modals/CategoryDetailsModal';
+import Swal from 'sweetalert2';
+import Loader from '../../partials/miniComponent/Loader';
 
 const CategoryList = () => {
 
@@ -33,13 +35,14 @@ const CategoryList = () => {
     }
 
     const getCategories = (pageNumber=1) => {
+        setIsLoading(true);
         axios.get(`${Constants.BASE_URL}/category?page=${pageNumber}&search=${input.search}&order_by=${input.order_by}&per_page=${input.per_page}&direction=${input.direction}`).then(res=>{
             setCategories(res.data.data);
             setItemsCountPerPage(res.data.meta.per_page);
             setStartFrom(res.data.meta.from);
             setTotalItemsCount(res.data.meta.total)
             setActivePage(res.data.meta.current_page)
-
+            setIsLoading(false);
         })
     }
 
@@ -51,6 +54,32 @@ const CategoryList = () => {
     const handleDetailsModal = (category) => {
         setCategory(category);
         setModalShow(true);
+    }
+
+    const handleCategoryDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Category will be deleted!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              axios.delete(`${Constants.BASE_URL}/category/${id}`).then(res=>{
+                getCategories()
+                Swal.fire({
+                    position: "top-end",
+                    icon: res.data.cls,
+                    title: res.data.msg,
+                    showConfirmButton: false,
+                    toast:true,
+                    timer: 1500
+                });
+            })
+            }
+          });
     }
 
     useEffect(()=>{
@@ -143,75 +172,77 @@ const CategoryList = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='table-responsive'>
-                                <table className={'my-table table table-hover table-striped table-bordered'}>
-                                    <thead>
-                                        <tr>
-                                            <th>SL</th>
-                                            <th>Name / Slug</th>
-                                            <th>Serial / Status</th>
-                                            <th>Photo</th>
-                                            <th>Created By</th>
-                                            <th>Created At</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {categories.map((category, index)=>(
-                                            <tr key={index}>
-                                                <td>{startFrom + index}</td>
-                                                <td>
-                                                    <p>Name: {category.name}</p>
-                                                    <p>Slug: {category.slug}</p>
-                                                </td>
-                                                <td>
-                                                    <p className={'text-theme'}>Serial: {category.serial}</p>
-                                                    <p className={'text-success'}>Status: {category.status}</p>
-                                                </td>
-                                                <td>
-                                                    <img 
-                                                        onClick={()=>handlePhotoModal(category.photo_full)}
-                                                        src={category.photo} alt={category.name}
-                                                        className={'img-thumbnail table-image'}
-                                                    />
-                                                </td>
-                                                <td>{category.created_by}</td>
-                                                <td>
-                                                    <p><small>Created: {category.created_at}</small></p>
-                                                    <p><small>Updated: {category.updated_at}</small></p>
-                                                </td>
-                                                <td>
-                                                    <button onClick={()=>handleDetailsModal(category)} className={'btn btn-sm btn-info my-1'}>
-                                                        <i className="fa-solid fa-eye" style={{color:"#ffffff"}}/> 
-                                                    </button>
-                                                    <Link to={'/'}>
-                                                        <button className={'btn btn-sm btn-warning my-1 mx-1'}>
-                                                            <i className="fa-solid fa-edit" style={{color:"#ffffff"}}/> 
-                                                        </button>
-                                                    </Link>
-                                                    <button className={'btn btn-sm btn-danger my-1'}>
-                                                        <i className="fa-solid fa-trash"/> 
-                                                    </button>
-                                                </td>
+                            {isLoading ? <Loader/> :
+                                <div className='table-responsive soft-landing'>
+                                    <table className={'my-table table table-hover table-striped table-bordered'}>
+                                        <thead>
+                                            <tr>
+                                                <th>SL</th>
+                                                <th>Name / Slug</th>
+                                                <th>Serial / Status</th>
+                                                <th>Photo</th>
+                                                <th>Created By</th>
+                                                <th>Created At</th>
+                                                <th>Action</th>
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                                <CategoryPhotoModal
-                                    show={modalShow}
-                                    onHide={() => setModalShow(false)}
-                                    tittle={'Category Photo'}
-                                    size={''}
-                                    photo={modalPhoto}
-                                />
-                                <CategoryDetailsModal
-                                    show={modalShow}
-                                    onHide={() => setModalShow(false)}
-                                    tittle={'Category Details'}
-                                    size={''}
-                                    category={category}
-                                />
-                            </div>
+                                        </thead>
+                                        <tbody>
+                                            {Object.keys(categories).length > 0 ? categories.map((category, index)=>(
+                                                <tr key={index}>
+                                                    <td>{startFrom + index}</td>
+                                                    <td>
+                                                        <p>Name: {category.name}</p>
+                                                        <p>Slug: {category.slug}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p className={'text-theme'}>Serial: {category.serial}</p>
+                                                        <p className={'text-success'}>Status: {category.status}</p>
+                                                    </td>
+                                                    <td>
+                                                        <img 
+                                                            onClick={()=>handlePhotoModal(category.photo_full)}
+                                                            src={category.photo} alt={category.name}
+                                                            className={'img-thumbnail table-image'}
+                                                        />
+                                                    </td>
+                                                    <td>{category.created_by}</td>
+                                                    <td>
+                                                        <p><small>Created: {category.created_at}</small></p>
+                                                        <p><small>Updated: {category.updated_at}</small></p>
+                                                    </td>
+                                                    <td>
+                                                        <button onClick={()=>handleDetailsModal(category)} className={'btn btn-sm btn-info my-1'}>
+                                                            <i className="fa-solid fa-eye" style={{color:"#ffffff"}}/> 
+                                                        </button>
+                                                        <Link to={'/'}>
+                                                            <button className={'btn btn-sm btn-warning my-1 mx-1'}>
+                                                                <i className="fa-solid fa-edit" style={{color:"#ffffff"}}/> 
+                                                            </button>
+                                                        </Link>
+                                                        <button onClick={()=>handleCategoryDelete(category.id)} className={'btn btn-sm btn-danger my-1'}>
+                                                            <i className="fa-solid fa-trash"/> 
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            )): 'Elemento no encontrado'}
+                                        </tbody>
+                                    </table>
+                                    <CategoryPhotoModal
+                                        show={modalShow}
+                                        onHide={() => setModalShow(false)}
+                                        tittle={'Category Photo'}
+                                        size={''}
+                                        photo={modalPhoto}
+                                    />
+                                    <CategoryDetailsModal
+                                        show={modalShow}
+                                        onHide={() => setModalShow(false)}
+                                        tittle={'Category Details'}
+                                        size={''}
+                                        category={category}
+                                    />
+                                </div>
+                            }
                         </div>
                         <div className='card-footer'>
                             <nav className='pagination-sm'>

@@ -11,6 +11,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $id
  * @property mixed $name
  * @property mixed $slug
+ * @property mixed $description
  * @property mixed $serial
  * @property mixed $status
  * @property mixed $user
@@ -31,6 +32,7 @@ class CategoryListResource extends JsonResource
             'id'=> $this->id,
             'name'=> $this->name,
             'slug'=> $this->slug,
+            'description'=> $this->description,
             'serial'=> $this->serial,
             'status'=> $this->status == 1 ? 'Active' :'Inactive',
             'photo'=> ImagesManager::prepareImageUrl(Category::THUMB_IMAGE_UPLOAD_PATH, $this->photo),
