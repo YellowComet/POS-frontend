@@ -5,6 +5,8 @@ import Constants from '../../../Constants';
 import axios from 'axios';
 import CategoryPhotoModal from '../../partials/modals/CategoryPhotoModal';
 import Pagination from 'react-js-pagination';
+import {Link} from 'react-router-dom';
+import CategoryDetailsModal from '../../partials/modals/CategoryDetailsModal';
 
 const CategoryList = () => {
 
@@ -15,6 +17,7 @@ const CategoryList = () => {
         search : '',
     });
     const [isLoading, setIsLoading] = useState(false);
+    const [category, setCategory] = useState([]);
 
     const [itemsCountPerPage, setItemsCountPerPage] = useState(0);
     const [totalItemsCount, setTotalItemsCount] = useState(1);
@@ -42,6 +45,11 @@ const CategoryList = () => {
 
     const handlePhotoModal = (photo) => {
         setModalPhoto(photo);
+        setModalShow(true);
+    }
+
+    const handleDetailsModal = (category) => {
+        setCategory(category);
         setModalShow(true);
     }
 
@@ -172,7 +180,19 @@ const CategoryList = () => {
                                                     <p><small>Created: {category.created_at}</small></p>
                                                     <p><small>Updated: {category.updated_at}</small></p>
                                                 </td>
-                                                <td>Action</td>
+                                                <td>
+                                                    <button onClick={()=>handleDetailsModal(category)} className={'btn btn-sm btn-info my-1'}>
+                                                        <i className="fa-solid fa-eye" style={{color:"#ffffff"}}/> 
+                                                    </button>
+                                                    <Link to={'/'}>
+                                                        <button className={'btn btn-sm btn-warning my-1 mx-1'}>
+                                                            <i className="fa-solid fa-edit" style={{color:"#ffffff"}}/> 
+                                                        </button>
+                                                    </Link>
+                                                    <button className={'btn btn-sm btn-danger my-1'}>
+                                                        <i className="fa-solid fa-trash"/> 
+                                                    </button>
+                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -183,6 +203,13 @@ const CategoryList = () => {
                                     tittle={'Category Photo'}
                                     size={''}
                                     photo={modalPhoto}
+                                />
+                                <CategoryDetailsModal
+                                    show={modalShow}
+                                    onHide={() => setModalShow(false)}
+                                    tittle={'Category Details'}
+                                    size={''}
+                                    category={category}
                                 />
                             </div>
                         </div>
