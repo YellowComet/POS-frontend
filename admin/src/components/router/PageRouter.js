@@ -5,6 +5,7 @@ import Master from '../layout/Master';
 import Error500 from '../modules/Error500';
 import AddCategory from '../modules/category/AddCategory';
 import CategoryList from '../modules/category/CategoryList';
+import CategoryEdit from '../modules/category/CategoryEdit';
 
 const PageRouter = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const PageRouter = createBrowserRouter([
         {
           path: '/category/create',
           element: <AddCategory />,
+        },
+        {
+          path: '/category/edit/:id',
+          element: <CategoryEdit />,
         },
         {
           path: '/error-500',

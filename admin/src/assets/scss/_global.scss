@@ -114,3 +114,11 @@ a {
 .soft-landing{
   @include transition;
 }
+
+.no-data-found-container{
+  width: 100%;
+  min-height: 40px;
+  .no-data-found{
+    position: absolute;
+  }
+}

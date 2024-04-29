@@ -1,18 +1,27 @@
-import React, {useState} from "react";
-import PageHead from '../../partials/PageHead';
-import axios from 'axios';
-import Constants from '../../../Constants';
+import React, {useEffect, useState} from "react";
+import { useParams } from "react-router-dom";
 import Swal from 'sweetalert2';
 import CardHeader from "../../partials/miniComponent/CardHeader";
+import Constants from '../../../Constants';
+import PageHead from '../../partials/PageHead';
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
-const AddCategory = () => {
-
-
+const CategoryEdit = () => {
+    
+    //Get URL Path Params
+    const params = useParams();
+    const navigate = useNavigate();
     const [input, setInput] = useState({status : 1});
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
 
+    const getCategory = () => {
+        axios.get(`${Constants.BASE_URL}/category/${params.id}`, input).then(res=>{
+            setInput(res.data.data);
+        })
+    }
     const handleInput = (e) => {
         if(e.target.name === 'name'){
             let slug = e.target.value
@@ -22,6 +31,7 @@ const AddCategory = () => {
         }
         setInput(prevState => ({...prevState, [e.target.name] : e.target.value}))
     }
+
     const handlePhoto = (e) => {
         let file = e.target.files[0]
         let reader = new FileReader()
@@ -31,10 +41,10 @@ const AddCategory = () => {
         reader.readAsDataURL(file)
     }
 
-    const handleCategoryCreate = () => {
+    const handleCategoryUpdate = () => {
         setIsLoading(true);
         console.log(input);
-        axios.post(`${Constants.BASE_URL}/category`, input).then(res=>{
+        axios.put(`${Constants.BASE_URL}/category/${params.id}`, input).then(res=>{
             setIsLoading(false)
             Swal.fire({
                 position: "top-end",
@@ -44,6 +54,7 @@ const AddCategory = () => {
                 toast:true,
                 timer: 1500
               });
+              navigate('/category')
         }).catch(errors => {
             setIsLoading(false)
             if(errors.response.status === 422){
@@ -61,7 +72,10 @@ const AddCategory = () => {
         })
     }
 
-
+    useEffect(()=>{
+        getCategory()
+    },[])
+    
     return (
         <>
             <PageHead title={'Category'} title2={'Add Category'} pageTitle={'Add Category'}/>
@@ -174,22 +188,22 @@ const AddCategory = () => {
                                         <small>{errors.photo !== undefined ? errors.photo[0] : null}</small>
                                         </p>
                                     </label>
-                                    {input.photo !== undefined ?
+                                    {input.photo !== undefined || input.photo_preview !== undefined ?
                                         <div className="row">
                                             <div className="col-6">
                                                 <div className="photo-preview mt-3">
-                                                    <img alt="Preview" src={input.photo} className="img-thumbnail aspect-one" />
+                                                    <img alt="Preview" src={input.photo === undefined ? input.photo_preview : input.photo} className="img-thumbnail aspect-one" />
                                                 </div>
                                             </div>
                                         </div> : null
-                                    }  
+                                    }
                                 </div>
                                 <div className="col-md-12">
                                     <div className="row justify-content-center">
                                         <div className="col-md-4">
                                             <div className="d-grid mt-4">
-                                                <button className="btn btn-primary theme-button" onClick={handleCategoryCreate} 
-                                                dangerouslySetInnerHTML={{__html: isLoading ? '<span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Loading...' : 'Add Category'}}/>
+                                                <button className="btn btn-primary theme-button" onClick={handleCategoryUpdate} 
+                                                dangerouslySetInnerHTML={{__html: isLoading ? '<span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Loading...' : 'Update Category'}}/>
                                             </div>
                                         </div>
                                     </div>
@@ -203,4 +217,4 @@ const AddCategory = () => {
     );
 };
 
-export default AddCategory;
+export default CategoryEdit;
