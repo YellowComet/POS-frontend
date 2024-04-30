@@ -33,6 +33,7 @@ const Sidebar = () => {
             Management
         </div>
 
+        {/* Category NavBar */}
         <li className="nav-item">
             <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                 aria-expanded="true" aria-controls="collapseTwo">
@@ -44,6 +45,22 @@ const Sidebar = () => {
                     <h6 className="collapse-header">Custom Components:</h6>
                     <Link className="collapse-item" to="/category">Category List</Link>
                     <Link className="collapse-item" to="/category/create">Add Category</Link>
+                </div>
+            </div>
+        </li>
+
+        {/* Sub-Category NavBar */}
+        <li className="nav-item">
+            <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#sub_category"
+                aria-expanded="false" aria-controls="collapseTwo">
+                <i className="fas fa-fw fa-cog"></i>
+                <span>Sub-Categories</span> <i className="fas fa-angle-down"></i>
+            </a>
+            <div id="sub_category" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
+                <div className="bg-white py-2 collapse-inner rounded">
+                    <h6 className="collapse-header">Custom Components:</h6>
+                    <Link className="collapse-item" to="/sub-category">Sub-Category List</Link>
+                    <Link className="collapse-item" to="/sub-category/create">Add Sub-Category</Link>
                 </div>
             </div>
         </li>

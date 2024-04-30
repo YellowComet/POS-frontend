@@ -13,5 +13,6 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::group(['middleware'=> 'auth:sanctum'], static function () {
     Route::post('logout', [AuthController::class,'logout']);
+    Route::get('get-category-list', [CategoryController::class, 'get_category_list']);
     Route::apiResource('category', CategoryController::class);
 });

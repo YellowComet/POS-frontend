@@ -80,6 +80,15 @@ class CategoryController extends Controller
     }
 
     /**
+     * @return JsonResponse
+     */
+    final public function get_category_list():JsonResponse
+    {
+        $categories = (new Category())->getCategoryIdAndName();
+        return response()->json($categories);
+    }
+
+    /**
      * @param string $file
      * @param string $name
      * @param string|null $existing_photo
