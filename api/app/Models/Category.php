@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 
 class Category extends Model
@@ -44,6 +45,14 @@ class Category extends Model
             $query->orderBy($input['order_by'], $direction);
         }
         return $query->with('user:id,name')->paginate($per_page);
+    }
+
+    /**
+     * @return Collection
+     */
+    final public function getCategoryIdAndName():Collection
+    {
+        return self::query()->select('id','name')->get();
     }
 
     /**

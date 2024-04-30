@@ -4,13 +4,14 @@ import axios from 'axios';
 import Constants from '../../../Constants';
 import Swal from 'sweetalert2';
 import CardHeader from "../../partials/miniComponent/CardHeader";
+import { useNavigate } from "react-router-dom";
 
 const AddCategory = () => {
-
 
     const [input, setInput] = useState({status : 1});
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
 
     const handleInput = (e) => {
@@ -33,7 +34,6 @@ const AddCategory = () => {
 
     const handleCategoryCreate = () => {
         setIsLoading(true);
-        console.log(input);
         axios.post(`${Constants.BASE_URL}/category`, input).then(res=>{
             setIsLoading(false)
             Swal.fire({
@@ -43,7 +43,8 @@ const AddCategory = () => {
                 showConfirmButton: false,
                 toast:true,
                 timer: 1500
-              });
+            });
+            navigate('/category')
         }).catch(errors => {
             setIsLoading(false)
             if(errors.response.status === 422){
