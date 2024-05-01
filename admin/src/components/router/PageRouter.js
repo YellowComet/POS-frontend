@@ -7,6 +7,8 @@ import AddCategory from '../modules/category/AddCategory';
 import CategoryList from '../modules/category/CategoryList';
 import CategoryEdit from '../modules/category/CategoryEdit';
 import SubCategoryAdd from '../modules/subCategory/SubCategoryAdd';
+import SubCategoryList from '../modules/subCategory/SubCategoryList';
+import SubCategoryEdit from '../modules/subCategory/SubCategoryEdit';
 
 const PageRouter = createBrowserRouter([
     {
@@ -29,10 +31,17 @@ const PageRouter = createBrowserRouter([
           path: '/category/edit/:id',
           element: <CategoryEdit />,
         },
-        
+        {
+          path: '/sub-category',
+          element: <SubCategoryList />,
+        },
         {
           path: '/sub-category/create',
           element: <SubCategoryAdd />,
+        },
+        {
+          path: '/sub-category/edit/:id',
+          element: <SubCategoryEdit />,
         },
         {
           path: '/error-500',
