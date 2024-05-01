@@ -55,7 +55,7 @@ class SubCategoryController extends Controller
      * @param SubCategory $category
      * @return JsonResponse
      */
-    public function update(UpdateSubCategoryRequest $request, SubCategory $subCategory)
+    public function update(UpdateSubCategoryRequest $request, SubCategory $subCategory):JsonResponse
     {
         $subcategory_data = $request->except('photo');
         $subcategory_data['slug'] = Str::slug($request->input('slug'));

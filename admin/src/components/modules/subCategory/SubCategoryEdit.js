@@ -110,7 +110,7 @@ const SubCategoryEdit = () => {
                                             onChange={handleInput}
                                             placeholder={'Select Category'}
                                         >
-                                            <option value={input.id}>{input.category_name}</option>
+                                            <option value={''}>Select Category</option>
                                             {categories.map((category, index)=>(
                                                <option key={index} value={category.id}>{category.name}</option>
                                             ))}
