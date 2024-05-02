@@ -37,14 +37,18 @@ const Sidebar = () => {
         <li className="nav-item">
             <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                 aria-expanded="true" aria-controls="collapseTwo">
-                <i className="fas fa-fw fa-cog"></i>
-                <span>Categories</span> <i className="fas fa-angle-down"></i>
+                <i className="fa-solid fa-icons"></i>
+                <span> Categories</span> <i className="fas fa-angle-down"></i>
             </a>
             <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                 <div className="bg-white py-2 collapse-inner rounded">
                     <h6 className="collapse-header">Custom Components:</h6>
-                    <Link className="collapse-item" to="/category">Category List</Link>
-                    <Link className="collapse-item" to="/category/create">Add Category</Link>
+                    <Link className="collapse-item" to="/category">
+                        <i class="fa-solid fa-list"></i> Category List
+                    </Link>
+                    <Link className="collapse-item" to="/category/create">
+                        <i class="fa-solid fa-plus"></i> Add Category
+                    </Link>
                 </div>
             </div>
         </li>
@@ -53,14 +57,38 @@ const Sidebar = () => {
         <li className="nav-item">
             <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#sub_category"
                 aria-expanded="false" aria-controls="collapseTwo">
-                <i className="fas fa-fw fa-cog"></i>
-                <span>Sub-Categories</span> <i className="fas fa-angle-down"></i>
+                <i className="fa-brands fa-product-hunt"></i>
+                <span> Sub-Categories</span> <i className="fas fa-angle-down"></i>
             </a>
             <div id="sub_category" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                 <div className="bg-white py-2 collapse-inner rounded">
                     <h6 className="collapse-header">Custom Components:</h6>
-                    <Link className="collapse-item" to="/sub-category">Sub-Category List</Link>
-                    <Link className="collapse-item" to="/sub-category/create">Add Sub-Category</Link>
+                    <Link className="collapse-item" to="/sub-category">
+                        <i class="fa-solid fa-list"></i> Sub-Category List
+                    </Link>
+                    <Link className="collapse-item" to="/sub-category/create">
+                        <i class="fa-solid fa-plus"></i>  Add Sub-Category
+                    </Link>
+                </div>
+            </div>
+        </li>
+
+        {/* Sub-Category NavBar */}
+        <li className="nav-item">
+            <a className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#supplier"
+                aria-expanded="false" aria-controls="collapseTwo">
+                <i className="fa-solid fa-layer-group"></i>
+                <span> Supplier</span> <i className="fas fa-angle-down"></i>
+            </a>
+            <div id="supplier" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
+                <div className="bg-white py-2 collapse-inner rounded">
+                    <h6 className="collapse-header">Custom Components:</h6>
+                    <Link className="collapse-item" to="/supplier">
+                        <i class="fa-solid fa-list"></i> Supplier List
+                    </Link>
+                    <Link className="collapse-item" to="/supplier/create">
+                        <i class="fa-solid fa-plus"></i>  Supplier Brand
+                    </Link>
                 </div>
             </div>
         </li>
@@ -125,7 +153,9 @@ const Sidebar = () => {
 
         {/* <!-- Sidebar Toggler (Sidebar) --> */}
         <div className="text-center d-none d-md-inline">
-          <button onClick={() => { clickMenuOpen() }} className="rounded-circle border-0" id="sidebarToggle"></button>
+          <button onClick={() => { clickMenuOpen() }} className="rounded-circle border-0" id="sidebarToggle">
+            <i class="fa-solid fa-bars"></i>
+          </button>
         </div>
 
         </ul>

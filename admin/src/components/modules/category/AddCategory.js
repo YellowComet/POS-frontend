@@ -142,7 +142,7 @@ const AddCategory = () => {
                                             <option value={0}>Inactive</option>
                                         </select>
                                         <p className="login-error-msg">
-                                        <small>{errors.statusv !== undefined ? errors.status[0] : null}</small>
+                                        <small>{errors.status !== undefined ? errors.status[0] : null}</small>
                                         </p>
                                     </label>
                                 </div>
