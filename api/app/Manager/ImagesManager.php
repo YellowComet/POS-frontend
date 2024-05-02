@@ -50,4 +50,41 @@ class ImagesManager{
         }
         return $url;
     }
+
+        /**
+     * @param string $file
+     * @param string $name
+     * @param string|null $existing_photo
+     * @param  int $width
+     * @param int $height
+     * @param string $path
+     * @param string $path_thumb
+     * @param int $width_thumb
+     * @param int $height_thumb
+     * @return string
+     */
+    public static function processImageUpload(
+        string $file,
+        string $name,
+        string $path,
+        int $width,
+        int $height,
+        string $path_thumb = null,
+        int $width_thumb = 0,
+        int $height_thumb = 0,
+        string|null $existing_photo = null
+        ):string
+    {
+         if(!empty($existing_photo)){
+            self::deleteImage($path, $existing_photo);
+            if(!empty($path_thumb)){
+                self::deleteImage($path_thumb, $existing_photo);
+            }
+        }
+        $photo_name = self::uploadImage($name, $width, $height, $path, $file);
+        if(!empty($path_thumb)){
+            self::uploadImage($name, $width_thumb, $height_thumb, $path_thumb, $file);
+        }
+        return $photo_name;
+    }
 }
