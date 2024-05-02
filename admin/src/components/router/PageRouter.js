@@ -9,6 +9,7 @@ import CategoryEdit from '../modules/category/CategoryEdit';
 import SubCategoryAdd from '../modules/subCategory/SubCategoryAdd';
 import SubCategoryList from '../modules/subCategory/SubCategoryList';
 import SubCategoryEdit from '../modules/subCategory/SubCategoryEdit';
+import SupplierAdd from '../modules/suppliers/SupplierAdd';
 
 const PageRouter = createBrowserRouter([
     {
@@ -42,6 +43,14 @@ const PageRouter = createBrowserRouter([
         {
           path: '/sub-category/edit/:id',
           element: <SubCategoryEdit />,
+        },
+        {
+          path: '/supplier',
+          element: <SupplierAdd />,
+        },
+        {
+          path: '/supplier/create',
+          element: <SupplierAdd />,
         },
         {
           path: '/error-500',
