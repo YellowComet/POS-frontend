@@ -126,15 +126,15 @@ const SupplierAdd = () => {
                                                 <label className="w-100">
                                                     <p>Company Name</p>
                                                     <input
-                                                        className={errors.company_name !== undefined ? 'form-control mt-2 is-invalid' : 'form-control mt-2'}
+                                                        className={errors.name !== undefined ? 'form-control mt-2 is-invalid' : 'form-control mt-2'}
                                                         type={'text'}
-                                                        name={'company_name'}
-                                                        value={input.company_name}
+                                                        name={'name'}
+                                                        value={input.name}
                                                         onChange={handleInput}
                                                         placeholder={'Enter Company Name'}
                                                     />
                                                     <p className="login-error-msg">
-                                                    <small>{errors.company_name !== undefined ? errors.company_name[0] : null}</small>
+                                                    <small>{errors.name !== undefined ? errors.name[0] : null}</small>
                                                     </p>
                                                 </label>
                                                 <label className="w-100">
@@ -186,10 +186,10 @@ const SupplierAdd = () => {
                                                     <p>Details</p>
                                                     <textarea
                                                         className={errors.details !== undefined ? 'form-control mt-2 is-invalid' : 'form-control mt-2'}
-                                                        name={'description'}
+                                                        name={'details'}
                                                         value={input.details}
                                                         onChange={handleInput}
-                                                        placeholder={'Enter Supplier Description'}
+                                                        placeholder={'Enter Supplier Details'}
                                                     />
                                                     <p className="login-error-msg">
                                                     <small>{errors.details !== undefined ? errors.details[0] : null}</small>
