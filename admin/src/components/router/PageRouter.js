@@ -11,6 +11,7 @@ import SubCategoryList from '../modules/subCategory/SubCategoryList';
 import SubCategoryEdit from '../modules/subCategory/SubCategoryEdit';
 import SupplierAdd from '../modules/suppliers/SupplierAdd';
 import SupplierList from '../modules/suppliers/SupplierList';
+import CartMenu from '../modules/CartMenu';
 
 const PageRouter = createBrowserRouter([
     {
@@ -52,6 +53,10 @@ const PageRouter = createBrowserRouter([
         {
           path: '/supplier/create',
           element: <SupplierAdd />,
+        },
+        {
+          path: '/cartmenu',
+          element: <CartMenu />,
         },
         {
           path: '/error-500',

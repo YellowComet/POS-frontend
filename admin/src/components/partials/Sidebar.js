@@ -87,7 +87,7 @@ const Sidebar = () => {
                         <i class="fa-solid fa-list"></i> Supplier List
                     </Link>
                     <Link className="collapse-item" to="/supplier/create">
-                        <i class="fa-solid fa-plus"></i>  Supplier Brand
+                        <i class="fa-solid fa-plus"></i>  Supplier Add
                     </Link>
                 </div>
             </div>
@@ -103,7 +103,7 @@ const Sidebar = () => {
                 data-bs-parent="#accordionSidebar">
                 <div className="bg-white py-2 collapse-inner rounded">
                     <h6 className="collapse-header">Custom Utilities:</h6>
-                    <a className="collapse-item" href="utilities-color.html">Colors</a>
+                    <Link className="collapse-item" to="/cartmenu">Cart</Link>
                     <a className="collapse-item" href="utilities-border.html">Borders</a>
                     <a className="collapse-item" href="utilities-animation.html">Animations</a>
                     <a className="collapse-item" href="utilities-other.html">Other</a>
@@ -153,9 +153,7 @@ const Sidebar = () => {
 
         {/* <!-- Sidebar Toggler (Sidebar) --> */}
         <div className="text-center d-none d-md-inline">
-          <button onClick={() => { clickMenuOpen() }} className="rounded-circle border-0" id="sidebarToggle">
-            <i class="fa-solid fa-bars"></i>
-          </button>
+          <button onClick={() => { clickMenuOpen() }} className="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
 
         </ul>
