@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SupplierListResource;
 use App\Models\Address;
 use App\Models\Supplier;
 use App\Http\Requests\StoreSupplierRequest;
@@ -9,15 +10,19 @@ use App\Http\Requests\UpdateSupplierRequest;
 use App\Manager\ImagesManager;
 use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class SupplierController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @param Request $request
+     * @return AnonymousResourceCollection
      */
-    public function index()
+    final public function index(Request $request):AnonymousResourceCollection
     {
-        //
+        $suppliers = (new Supplier())->getSupplierList($request->all());
+        return SupplierListResource::collection($suppliers);
     }
 
     /**
@@ -29,7 +34,7 @@ class SupplierController extends Controller
         $supplier = (new Supplier())->prepareData($request->all(), auth());
         $address = (new Address())->prepareData($request->all());
         if($request->has('logo')){
-            $name = Str::slug($supplier['name']);
+            $name = Str::slug($supplier['name'].now());
             $supplier['logo'] = ImagesManager::processImageUpload(
                 $request->input('logo'),
                 $name,

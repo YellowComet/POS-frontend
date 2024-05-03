@@ -10,6 +10,7 @@ import SubCategoryAdd from '../modules/subCategory/SubCategoryAdd';
 import SubCategoryList from '../modules/subCategory/SubCategoryList';
 import SubCategoryEdit from '../modules/subCategory/SubCategoryEdit';
 import SupplierAdd from '../modules/suppliers/SupplierAdd';
+import SupplierList from '../modules/suppliers/SupplierList';
 
 const PageRouter = createBrowserRouter([
     {
@@ -46,7 +47,7 @@ const PageRouter = createBrowserRouter([
         },
         {
           path: '/supplier',
-          element: <SupplierAdd />,
+          element: <SupplierList />,
         },
         {
           path: '/supplier/create',
