@@ -10,3 +10,16 @@ Bootstrap objects: https://getbootstrap.com/docs/5.3/
 FontAwesome Icons: https://fontawesome.com/start
 
 imports SCSS: https://github.com/selfishprimate/gerillass/blob/master/scss/library/_adaptive.scss
+
+heroicons
+
+https://headlessui.com/
+
+framer-motion
+https://www.framer.com/motion/
+react-redux
+
+@reduxjs/toolkit
+
+
+react-toastify
