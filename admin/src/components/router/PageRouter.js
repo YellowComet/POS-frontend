@@ -55,14 +55,14 @@ const PageRouter = createBrowserRouter([
           element: <SupplierAdd />,
         },
         {
-          path: '/cartmenu',
-          element: <CartMenu />,
-        },
-        {
           path: '/error-500',
           element: <Error500 />,
         }
       ],
+    },
+    {
+      path: '/cartmenu',
+      element: <CartMenu />,
     },
   ]);
 

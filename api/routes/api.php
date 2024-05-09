@@ -23,6 +23,8 @@ Route::get('ciudades/{provincia_id}', [CiudadController::class, 'index']);
 Route::group(['middleware'=> 'auth:sanctum'], static function () {
     Route::post('logout', [AuthController::class,'logout']);
     Route::get('get-category-list', [CategoryController::class, 'get_category_list']);
+    Route::get('get-subcategory-list/{provincia_id}', [SubCategoryController::class, 'get_subcategory_list']);
+    Route::get('get-subcategory-list2', [SubCategoryController::class, 'get_subcategory_list2']);
     Route::apiResource('category', CategoryController::class);
     Route::apiResource('sub-category', SubCategoryController::class);
     Route::apiResource('supplier', SupplierController::class);

@@ -105,4 +105,20 @@ class SubCategoryController extends Controller
         return $photo_name;
     }
 
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    final public function get_subcategory_list(int $id):JsonResponse
+    {
+        $categories = (new SubCategory())->getCategoryIdAndName($id);
+        return response()->json($categories);
+    }
+
+    final public function get_subcategory_list2():JsonResponse
+    {
+        $categories = (new SubCategory())->getSubCategorys();
+        return response()->json($categories);
+    }
+
 }

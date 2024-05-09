@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class SubCategory extends Model
 {
@@ -61,4 +62,20 @@ class SubCategory extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @param int $id
+     * @return Collection
+     */
+    final public function getSubCategoryIdAndName(int $id):Collection
+    {
+        return self::query()->select('id','name')->where('category_id', $id)->get();
+    }
+
+    /**
+     * @return Collection
+     */
+    final public function getSubCategorys():Collection
+    {
+        return self::query()->select('id','name','category_id')->get();
+    }
 }
