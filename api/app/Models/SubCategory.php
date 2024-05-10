@@ -68,7 +68,7 @@ class SubCategory extends Model
      */
     final public function getSubCategoryIdAndName(int $id):Collection
     {
-        return self::query()->select('id','name')->where('category_id', $id)->get();
+        return self::query()->select('id','name', 'serial')->where('category_id', $id)->get();
     }
 
     /**
