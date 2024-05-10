@@ -19,7 +19,11 @@ framer-motion
 https://www.framer.com/motion/
 react-redux
 
+npm install -D tailwindcss
+
 @reduxjs/toolkit
 
 
 react-toastify
+
+npm i react-scrollable-feed

@@ -1,6 +1,6 @@
 import React from 'react'
 import Category from './Category';
-// import Cart from './Cart';
+import Cart from './Cart';
 
 
 
@@ -25,7 +25,7 @@ export default function Dashboard() {
                             </main>
                             <div className='lg:block hidden'>
                                 <aside className="relative bg-[#0e1227] w-[350px] h-[96.8vh] flex-shrink-0 overflow-y-auto">
-                                    {/* <Cart /> */}
+                                     <Cart /> 
                                 </aside>
                             </div>
                         </div>

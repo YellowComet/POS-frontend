@@ -111,7 +111,7 @@ class SubCategoryController extends Controller
      */
     final public function get_subcategory_list(int $id):JsonResponse
     {
-        $categories = (new SubCategory())->getCategoryIdAndName($id);
+        $categories = (new SubCategory())->getSubCategoryIdAndName($id);
         return response()->json($categories);
     }
 
