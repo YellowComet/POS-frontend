@@ -1,32 +1,30 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-// import { useDispatch } from "react-redux"
-// import { add } from "../store/cartSlice"
+import { useDispatch } from "react-redux"
+import { add } from "../../store/cartSlice"
 
 const CategoryDetails = ({ categoryDetails }) => {
     const [quantity, setQuantity] = useState(0);
     const [id, setId] = useState(null);
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const inCreament = (id) => {
-        // setId(id);
-        // setQuantity(quantity + 1);
+        setId(id);
+        setQuantity(quantity + 1);
     }
     const deCrement = (id) => {
-        // setId(id);
-        // if (quantity === 0) return;
-
-        // setQuantity(quantity - 1);
+        setId(id);
+        if (quantity === 0) return;
+        setQuantity(quantity - 1);
     }
 
     const addItems = (data) => {
-        // const { id, title, price, category } = data;
-        // const newData = { id, title, price : price*quantity, category, quantity: quantity };
+        const { id, name, serial} = data;
+        const newData = { id, name, serial : serial*quantity, quantity: quantity };
 
-        // if (quantity > 0) {
-        //     // dispatch(add(newData))
-        //     setQuantity(0);
-        // }
-
+        if (quantity > 0) {
+            dispatch(add(newData))
+            setQuantity(0);
+        }
     }
 
     return (
@@ -40,11 +38,11 @@ const CategoryDetails = ({ categoryDetails }) => {
                             }} style={{
                                 backgroundColor: "#151a34",
                                 color: "#dfe3f4"
-                            }} className='flex justify-between p-3 h-[150px] cursor-pointer '>
+                            }} className='flex justify-between p-3 h-[150px] cursor-pointer  subCategoryName'>
                                 <div onClick={() => addItems(curr)} className='flex flex-col items-start justify-between pl-4 font-bold h-[95px] space-y-5'>
                                     <div>
-                                        <h4>{curr.name}</h4>
-                                        <p className='text-xs text-[#818497]'> {curr.serial} €
+                                        <p>{curr.name}</p>
+                                        <p className='text-sm text-[#818497]'> {curr.serial} €
                                         </p>
                                     </div>
                                 </div>
