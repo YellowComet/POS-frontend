@@ -108,7 +108,7 @@ const Category = () => {
         <>
             <motion.div initial={{ y: 100 }} animate={{ y: 0 }} style={{
                 backgroundColor: "#0e1227"
-            }} className='p-4 border-b-2 border-black h-[340px] overflow-y-scroll scrollbar-hide'>
+            }} className='p-4 border-b-2 border-black rowCat overflow-y-scroll scrollbar-hide'>
                 <div className='grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-2'>
                     {
                         categoryList.map((curr, i) => {
@@ -116,9 +116,9 @@ const Category = () => {
                                 <div onClick={() => allEvets(curr.id)} key={i} style={{
                                     backgroundColor: `${colorList[i]}`,
                                     color: "#dfe3f4"
-                                }} className='flex items-center justify-between cursor-pointer '>
-                                    <div className='flex flex-col items-start justify-between pl-4 py-3 font-bold h-[158px]'>
-                                        <h3>{curr.name}</h3>
+                                }} className='flex items-center justify-between cursor-pointer rounded'>
+                                    <div className='flex flex-col items-start justify-between pl-4 py-3 font-bold h-[158px] categoryName'>
+                                        <p>{curr.name}</p>
                                          <small className='test-white font-semibold'>{getItems(curr.id, subCategoryList)}  items</small>
                                     </div>
                                     {
@@ -135,7 +135,7 @@ const Category = () => {
                     }
                 </div>
             </motion.div>
-            <div className=' p-4 h-[334px] border-b border-black' style={{
+            <div className=' p-4 rowCat border-b border-black overflow-y-scroll scrollbar-hide' style={{
                 backgroundColor: "#0e1227"
             }}>
                  {categoryDetails2?.length > 0 ? <CategoryDetails categoryDetails={categoryDetails2} /> : (<small className='text-[#818497]'>Select any category. </small>)}
