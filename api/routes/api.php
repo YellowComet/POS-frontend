@@ -4,6 +4,7 @@ use \App\Http\Controllers\AuthController;
 use App\Http\Controllers\CAController;
 use \App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CiudadController;
+use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\SupplierController;
@@ -25,7 +26,10 @@ Route::group(['middleware'=> 'auth:sanctum'], static function () {
     Route::get('get-category-list', [CategoryController::class, 'get_category_list']);
     Route::get('get-subcategory-list/{provincia_id}', [SubCategoryController::class, 'get_subcategory_list']);
     Route::get('get-subcategory-list2', [SubCategoryController::class, 'get_subcategory_list2']);
+    Route::get('get-pedido/{transaction_id}', [PedidosController::class, 'get_pedido']);
+    Route::apiResource('pedidos', PedidosController::class);
     Route::apiResource('category', CategoryController::class);
     Route::apiResource('sub-category', SubCategoryController::class);
     Route::apiResource('supplier', SupplierController::class);
+    Route::apiResource('pedido', PedidosController::class);
 });

@@ -1,42 +1,42 @@
-import React, { useState } from 'react'
-import { remove, removeAll, selectTotal, sum, sub } from '../../store/cartSlice'
-// import { removeCustomer } from '../store/customerSlice'
+import React, { useState, useEffect } from 'react'
+import { remove, removeAll, selectTotal, quantityTotal, sum, sub } from '../../store/cartSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { AnimatePresence, motion } from 'framer-motion'
-// import Avatar from 'react-avatar'
 import ScrollableFeed from "react-scrollable-feed";
-// import Invoice from './Invoice'
-// import { addAllCustomer } from '../store/allCustomerSlice'
-// import axios from "axios"
+import Invoice from './Invoice'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2';
+import axios from 'axios';
+import Constants from '../../../Constants';
 
 
 const CartItems = () => {
     const dispatch = useDispatch();
     const [invoiceShow, setInvoiceShow] = useState(false);
     // const customer = useSelector(state => state.customer);
-    // const [orderId, setOrderId] = useState("Cash-Payment");
-    // const [paymentId, setPaymentId] = useState("Cash-Payment");
+    const [orderId, setOrderId] = useState("Cash-Payment");
     const [payment, setPayment] = useState(false);
+    const [transId, setTransId] = useState(0);
     const cart = useSelector(state => state.cart);
+    const cartTotal = useSelector(quantityTotal);
     const total = useSelector(selectTotal);
     const tax = (21 / 100) * total;
     const subTotal = total + tax;
-    const [paymentMode, setPaymentMode] = useState(null);
-    // const total = 0;
-    //const subTotal = 0;
+    const [paymentMode, setPaymentMode] = useState("Tarjeta");
 
     const inCreament = (data) => {
         const { id, serial } = data;
         const newData = { id, serial };
         dispatch(sum(newData))
+        setInvoiceShow(false);
     }
 
     const deCreament = (data) => {
         const { id, serial } = data;
         const newData = { id, serial };
         dispatch(sub(newData))
+        setInvoiceShow(false);
     }
 
 
@@ -47,83 +47,64 @@ const CartItems = () => {
 
     const showInvoice = () => {
         setInvoiceShow(true);
+        setPayment(false);
     }
+
     const closeInvoice = () => {
         setInvoiceShow(false);
+        setPayment(false);
+    }
+
+    const finishPay = () => {
+        setPayment(false);
     }
 
     const handlePayment = async () => {
+        if(payment){
+            return;
+        }else{
+            setPaymentMode('Tarjeta');
+            const newData = { comprador: 'DIEGO', total: total, subTotal: subTotal, nproductos: cart.length, descuento: '0', formaPago: paymentMode, totalproductos: cartTotal, productos: cart }
+            axios.post(`${Constants.BASE_URL}/pedido`, newData).then(res=>{
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Has Pagado Correctamente",
+                showConfirmButton: false,
+                toast:true,
+                timer: 1500
+            });
+            setTransId(res.data.transaction_id);
+            }).catch(errors => {
+                console.log(errors);
+            })
+            setPayment(true);
+            dispatch(removeAll());
+        }
+    }
 
-        // if(payment){
-        //     return;
-        // }
-
-        // const config = {
-        //     headers: {
-        //         "Content-type": "application/json",
-        //     },
-        // };
-        // try {
-        //     const res = await axios.post(`https://react-pos-backend.vercel.app/api/order`, {
-        //         items: cart.length, bill: subTotal.toFixed()
-        //     }, config);
-
-        //     console.log(res);
-        //     // console.log(res);
-        //     // if (res.status != 200) {
-        //     //     return;
-        //     // }
-        //     const options = {
-        //         "key": "rzp_test_G3gA5dRpgezWGS", // Enter the Key ID generated from the Dashboard
-        //         "amount": res.data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-        //         "currency": res.data.currency,
-        //         "name": "Food Bill",
-        //         "description": res.data.notes.desc,
-        //         // "image": "https://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png",
-        //         "order_id": res.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        //         "handler": function (response) {
-        //             setOrderId(response.razorpay_order_id);
-        //             setPaymentId(response.razorpay_payment_id);
-        //             // setSignature(response.razorpay_signature);
-        //             setPayment(true);
-        //             setPaymentMode(response.razorpay_payment_id);
-        //             toast.success('Payment done!', {
-        //                 position: "top-center",
-        //                 autoClose: 4000,
-        //                 hideProgressBar: true,
-        //                 closeOnClick: true,
-        //                 pauseOnHover: false,
-        //                 draggable: true,
-        //                 progress: undefined,
-        //                 theme: "dark",
-        //             });
-
-        //         },
-        //         "prefill": {
-        //             "name": customer[0].name,
-        //             "email": customer[0].email,
-        //             // "contact": customer[0].phone
-        //         },
-        //     };
-
-        //     var rzp1 = new window.Razorpay(options);
-
-        //     rzp1.open();
-
-        //     rzp1.on('payment.failed', function (response) {
-        //         alert(response.error.code);
-        //         alert(response.error.description);
-        //         alert(response.error.source);
-        //         alert(response.error.step);
-        //         alert(response.error.reason);
-        //         alert(response.error.metadata.order_id);
-        //         alert(response.error.metadata.payment_id);
-        //     });
-
-
-        // } catch (error) {
-        //     console.log(error);
-        // }
+    const handlePaymentCash = async () => {
+        if(payment){
+            return;
+        }else{
+            setPaymentMode('Cash');
+            const newData = { comprador: 'DIEGO', total: total, subTotal: subTotal, nproductos: cart.length, descuento: '0', formaPago: paymentMode, totalproductos: cartTotal, productos: cart }
+            axios.post(`${Constants.BASE_URL}/pedido`, newData).then(res=>{
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Has Pagado Correctamente",
+                showConfirmButton: false,
+                toast:true,
+                timer: 1500
+            });
+            setTransId(res.data.transaction_id);
+            }).catch(errors => {
+                console.log(errors);
+            })
+            setPayment(true);
+            dispatch(removeAll());
+        }
     }
 
     return (
@@ -197,45 +178,33 @@ const CartItems = () => {
                                 <div className='bg-[#151a34] text-center p-2 text-sm font-semibold hover:bg-[#1f2544] cursor-pointer border border-black rounded-tl-lg'>
                                     <button className='buttonCart btn btn-primary'>Discount</button>
                                 </div>
-                                <div onClick={() => {
-                                    setPaymentMode("cash")
-                                    setPayment(true);
-                                    toast.success('Cash recieved!', {
-                                        position: "top-center",
-                                        autoClose: 4000,
-                                        hideProgressBar: true,
-                                        closeOnClick: true,
-                                        pauseOnHover: false,
-                                        draggable: true,
-                                        progress: undefined,
-                                        theme: "dark",
-                                    });
-                                }} className='bg-[#151a34] text-center p-2 text-sm font-semibold hover:bg-[#1f2544] cursor-pointer border border-black'>
+                                <div onClick={handlePaymentCash} className='bg-[#151a34] text-center p-2 text-sm font-semibold hover:bg-[#1f2544] cursor-pointer border border-black'>
                                     <button className='buttonCart btn btn-primary'>Cash</button>
                                 </div>
-                                <div onClick={handlePayment} className='bg-[#151a34] text-center p-2 text-sm font-semibold hover:bg-[#1f2544] cursor-pointer border border-black rounded-tr-lg'>
+                                <div className='bg-[#151a34] text-center p-2 text-sm font-semibold hover:bg-[#1f2544] cursor-pointer border border-black rounded-tr-lg'>
                                     <button className='buttonCart btn btn-primary' onClick={handlePayment} >UPI</button>
                                 </div>
                             </div>
                             <div className='flex flex-col pl-8 pr-8 py-2 space-y-2'>
-                                {/* /Total  */}
-                                {payment && (
-                                    <p className='text-center text-xs font-semibold text-green-500'>Payment done. <small className='font-normal text-white'> Now you can place order.</small> </p>
-                                )}
+
                                 <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Tax 21%</p><p>{tax.toFixed(2)}€</p></div>
                                 <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Subtotal</p><p>{total.toFixed(2)}€</p></div>
                                 <div className='flex flex-row items-center justify-between text-sm font-bold '><p>Total</p><p>{subTotal.toFixed(2)}€</p></div>
+                                {payment && (
+                                    <p className='text-center text-xs font-semibold text-green-500'>Payment done. you want ticket?<small className='font-normal text-white'> Now you can place order.</small> </p>
+                                )}
                             </div>
                         </div>
                     </div>
-                    <div className='grid grid-cols-1 text-center p-2 text-sm font-semibold hover:bg-[#1f2544] cursor-pointer gap-0 pt-2 text-center bottom-0 w-full'>
-                        <div onClick={showInvoice} className='bg-[#151a34]'>
-                            <button className={cart.length > 0 ? ' py-4 text-center pt-2 buttonCart btn btn-primary' : ' buttonCart btn btn-primary cartPayButton py-4 text-center pt-2 cursor-not-allowed'} >KOT</button>
-                        </div>
+                    <div className='text-center sm:flex-none space-x-4  p-2 text-sm font-semibold cursor-pointer'>
+                        {/* <div className='bg-[#151a34]'> */}
+                            <button onClick={showInvoice} className={payment ? ' py-4 text-center btn btn-success' : 'btn btn-danger py-4 text-center cursor-not-allowed border'} >Ticket</button>
+                            <button onClick={finishPay}  className={payment ? ' py-4 text-center btn btn-success' : 'btn btn-danger py-4 text-center cursor-not-allowed border'} >Sin Ticket</button>
+                        {/* </div> */}
                     </div>
                 </div>
             </ScrollableFeed>
-            {/* {invoiceShow && <Invoice closeInvoice={closeInvoice} paymentMode={paymentMode} />} */}
+             {invoiceShow && <Invoice closeInvoice={closeInvoice} paymentMode={paymentMode} transId={transId} />} 
         </div >
     )
 }

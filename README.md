@@ -27,3 +27,6 @@ npm install -D tailwindcss
 react-toastify
 
 npm i react-scrollable-feed
+
+
+react-to-print

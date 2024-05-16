@@ -31,11 +31,12 @@ const cartSlice = createSlice({
         },
         removeAll(state, action){
             return state = [];
-        }
+        },
     }
 })
 
 
 export const { add, remove, removeAll, sum, sub } = cartSlice.actions;
 export const selectTotal = (state) => state.cart.reduce((total , item) => total + item.serial , 0);
+export const quantityTotal = (state) => state.cart.reduce((quantity , item) => quantity + item.quantity , 0);
 export default cartSlice.reducer;
