@@ -12,6 +12,7 @@ import SubCategoryEdit from '../modules/subCategory/SubCategoryEdit';
 import SupplierAdd from '../modules/suppliers/SupplierAdd';
 import SupplierList from '../modules/suppliers/SupplierList';
 import CartMenu from '../modules/CartMenu';
+import Orders from '../layout/Orders';
 
 const PageRouter = createBrowserRouter([
     {
@@ -63,6 +64,10 @@ const PageRouter = createBrowserRouter([
     {
       path: '/cartmenu',
       element: <CartMenu />,
+    },
+    {
+      path: '/orders',
+      element: <Orders />,
     },
   ]);
 
