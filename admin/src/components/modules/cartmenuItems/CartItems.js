@@ -4,21 +4,25 @@ import { useSelector, useDispatch } from 'react-redux'
 import { AnimatePresence, motion } from 'framer-motion'
 import ScrollableFeed from "react-scrollable-feed";
 import Invoice from './Invoice'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import Constants from '../../../Constants';
+import { setTrue, setFalse, toggle, setId, resetId, setTotalPagado, resetTotalPagado } from "../../store/returnSlice"
 
 
 const CartItems = () => {
     const dispatch = useDispatch();
     const [invoiceShow, setInvoiceShow] = useState(false);
     // const customer = useSelector(state => state.customer);
-    const [orderId, setOrderId] = useState("Cash-Payment");
     const [payment, setPayment] = useState(false);
     const [transId, setTransId] = useState(0);
     const cart = useSelector(state => state.cart);
+    const isReturn = useSelector(state => state.return.myBoolean);
+    const returnId = useSelector(state => state.return.id);
+    const returnTotal = useSelector(state => state.return.totalPagado);
+
     const cartTotal = useSelector(quantityTotal);
     const total = useSelector(selectTotal);
     const [totalFinal, setTotalFinal] = useState(0);
@@ -87,6 +91,8 @@ const CartItems = () => {
             setTaxFinal((21 / 100) * total);
             setSubTotalFinal(total + tax);
             dispatch(removeAll());
+            dispatch(setFalse());
+
         }
     }
 
@@ -111,6 +117,7 @@ const CartItems = () => {
             })
             setPayment(true);
             dispatch(removeAll());
+            dispatch(setFalse());
         }
     }
 
@@ -118,6 +125,7 @@ const CartItems = () => {
         <div>
             <ToastContainer />
             <ScrollableFeed >
+                {isReturn ? <p className='text-white text-center mt-2'>DEVOLUCIÓN</p> : null}
                 <div className='flex flex-col justify-between text-white bg-[#0e1227]'>
                     <motion.div transition={{ duration: 0.5 }} exit={{ y: "50%", opacity: 0 }} className='flex flex-col px-4 py-4 space-y-1 h-[55vh] overflow-y-scroll scrollbar-hide'>
 
@@ -193,10 +201,20 @@ const CartItems = () => {
                                 </div>
                             </div>
                             <div className='flex flex-col pl-8 pr-8 py-2 space-y-2'>
-
-                                <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Tax 21%</p><p>{tax.toFixed(2)}€</p></div>
-                                <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Subtotal</p><p>{total.toFixed(2)}€</p></div>
-                                <div className='flex flex-row items-center justify-between text-sm font-bold '><p>Total</p><p>{subTotal.toFixed(2)}€</p></div>
+                                {isReturn ?  
+                                (
+                                <>
+                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Pagado</p><p>{returnTotal.toFixed(2)}€</p></div>
+                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Total</p><p>{subTotal.toFixed(2)}€</p></div>
+                                    <div className='flex flex-row items-center justify-between text-sm font-bold '><p>Devolución</p><p>{(returnTotal - subTotal).toFixed(2)}€</p></div>
+                                </>
+                                ):(
+                                 <>
+                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Tax 21%</p><p>{tax.toFixed(2)}€</p></div>
+                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Subtotal</p><p>{total.toFixed(2)}€</p></div>
+                                    <div className='flex flex-row items-center justify-between text-sm font-bold '><p>Total</p><p>{subTotal.toFixed(2)}€</p></div>
+                                </>
+                                )}
                                 {payment && (
                                     <p className='text-center text-xs font-semibold text-green-500'>Payment done. you want ticket?<small className='font-normal text-white'> Now you can place order.</small> </p>
                                 )}
