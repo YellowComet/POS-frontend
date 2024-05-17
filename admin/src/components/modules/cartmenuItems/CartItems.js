@@ -32,14 +32,14 @@ const CartItems = () => {
     const [subTotalFinal, setSubTotalFinal] = useState(0);
     const [discountPercent, setDiscountPercent] = useState(0);
     const [discountNum, setDiscountNum] = useState(0);
+    const [paymentMod, setPaymentMod] = useState();
+
 
     const totalConDescuentoNum = (total - discountNum);
     const discount = (totalConDescuentoNum * (discountPercent/100));
     const totalConDescuentoPercent = totalConDescuentoNum - discount;
     const tax = (21 / 100) * total;
     const subTotal = totalConDescuentoPercent + tax;
-    const [paymentMode, setPaymentMode] = useState("Tarjeta");
-
 
     const inCreament = (data) => {
         const { id, serial } = data;
@@ -74,16 +74,25 @@ const CartItems = () => {
         setPayment(false);
     }
 
-    const handleDiscount = (photo) => {
+    const handleDiscount = () => {
         setModalShow(true);
     }
 
-    const handlePayment = async () => {
+    const handlePaymentCard = () => {
+        handlePayment('Tarjeta');
+        setPaymentMod('Tarjeta');
+    }
+
+    const handlePaymentCash = () => {
+        handlePayment('Cash');
+        setPaymentMod('Cash');
+    }
+
+    const handlePayment = async (paymentMode) => {
         if(payment){
             return;
         }else {
-            setPaymentMode('Tarjeta');
-            const newData = { comprador: 'DIEGO', total: total, subTotal: subTotal, nproductos: cart.length, descuento: '0', formaPago: paymentMode, totalproductos: cartTotal, productos: cart }
+            const newData = { comprador: 'DIEGO', total: totalConDescuentoPercent, subTotal: subTotal, nproductos: cart.length, descuento: '0', formaPago: paymentMode, totalproductos: cartTotal, productos: cart }
             if(isReturn){
                 axios.put(`${Constants.BASE_URL}/pedido/${returnId}`, newData).then(res=>{
                     Swal.fire({
@@ -114,51 +123,9 @@ const CartItems = () => {
                 })
             }
             setPayment(true);
-            setTotalFinal(total);
-            setTaxFinal((21 / 100) * total);
-            setSubTotalFinal(total + tax);
-            dispatch(removeAll());
-            dispatch(setFalse());
-
-        }
-    }
-
-    const handlePaymentCash = async () => {
-        if(payment){
-            return;
-        }else{
-            setPaymentMode('Cash');
-            const newData = { comprador: 'DIEGO', total: total, subTotal: subTotal, nproductos: cart.length, descuento: '0', formaPago: paymentMode, totalproductos: cartTotal, productos: cart }
-            if(isReturn){
-                axios.put(`${Constants.BASE_URL}/pedido/${returnId}`, newData).then(res=>{
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        title: "Devolución Correcta",
-                        showConfirmButton: false,
-                        toast:true,
-                        timer: 1500
-                    });
-                    setTransId(returnId);
-                    }).catch(errors => {
-                        console.log(errors);
-                    })
-            }else{
-                axios.post(`${Constants.BASE_URL}/pedido`, newData).then(res=>{
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Has Pagado Correctamente",
-                    showConfirmButton: false,
-                    toast:true,
-                    timer: 1500
-                });
-                setTransId(res.data.transaction_id);
-                }).catch(errors => {
-                    console.log(errors);
-                })
-            }
-            setPayment(true);
+            setTotalFinal(totalConDescuentoPercent);
+            setTaxFinal((21 / 100) * totalConDescuentoPercent);
+            setSubTotalFinal(totalConDescuentoPercent + tax);
             dispatch(removeAll());
             dispatch(setFalse());
         }
@@ -182,7 +149,6 @@ const CartItems = () => {
                                                 <motion.li initial={{ x: 100 }} animate={{ x: 0 }} transition={{ duration: 0.2 }} exit={{ y: "50%", opacity: 0, scale: 0.5 }} key={index}>
                                                     <a href="#" className="block hover:rounded-md text-decoration-none">
                                                         <div className="px-4 py-2">
-
                                                             <div className="flex items-center justify-between">
                                                                 <p className="truncate text-sm font-medium text-white">{index + 1}. &nbsp;{curr.name} &nbsp; </p>
                                                                 <div className="ml-2 flex flex-shrink-0">
@@ -240,7 +206,7 @@ const CartItems = () => {
                                     <button className='buttonCart btn btn-primary'>Cash</button>
                                 </div>
                                 <div className='bg-[#151a34] text-center p-2 text-sm font-semibold hover:bg-[#1f2544] cursor-pointer border border-black rounded-tr-lg'>
-                                    <button className='buttonCart btn btn-primary' onClick={handlePayment} >UPI</button>
+                                    <button className='buttonCart btn btn-primary' onClick={handlePaymentCard} >UPI</button>
                                 </div>
                             </div>
                             <div className='flex flex-col pl-8 pr-8 py-2 space-y-2'>
@@ -283,7 +249,7 @@ const CartItems = () => {
                 sendDataNum={setDiscountNum}
 
             />
-            {invoiceShow && <Invoice closeInvoice={closeInvoice} paymentMode={paymentMode} transId={transId} total={totalFinal} subTotal={subTotalFinal} tax={taxFinal}/>} 
+            {invoiceShow && <Invoice closeInvoice={closeInvoice} paymentMod={paymentMod} transId={transId} total={totalFinal} subTotal={subTotalFinal} tax={taxFinal}/>} 
         </div >
     )
 }
