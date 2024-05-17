@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import Constants from '../../../Constants';
 import { setFalse } from "../../store/returnSlice"
+import DiscountModal from '../../partials/modals/DiscountModal';
 
 
 const CartItems = () => {
@@ -22,16 +23,23 @@ const CartItems = () => {
     const isReturn = useSelector(state => state.return.myBoolean);
     const returnId = useSelector(state => state.return.id);
     const returnTotal = useSelector(state => state.return.totalPagado);
+    const [modalShow, setModalShow] = useState(false);
 
     const cartTotal = useSelector(quantityTotal);
     const total = useSelector(selectTotal);
     const [totalFinal, setTotalFinal] = useState(0);
     const [taxFinal, setTaxFinal] = useState(0);
     const [subTotalFinal, setSubTotalFinal] = useState(0);
+    const [discountPercent, setDiscountPercent] = useState(0);
+    const [discountNum, setDiscountNum] = useState(0);
 
+    const totalConDescuentoNum = (total - discountNum);
+    const discount = (totalConDescuentoNum * (discountPercent/100));
+    const totalConDescuentoPercent = totalConDescuentoNum - discount;
     const tax = (21 / 100) * total;
-    const subTotal = total + tax;
+    const subTotal = totalConDescuentoPercent + tax;
     const [paymentMode, setPaymentMode] = useState("Tarjeta");
+
 
     const inCreament = (data) => {
         const { id, serial } = data;
@@ -46,7 +54,6 @@ const CartItems = () => {
         dispatch(sub(newData))
         setInvoiceShow(false);
     }
-
 
     const handleRemove = (e, id) => {
         e.preventDefault()
@@ -65,6 +72,10 @@ const CartItems = () => {
 
     const finishPay = () => {
         setPayment(false);
+    }
+
+    const handleDiscount = (photo) => {
+        setModalShow(true);
     }
 
     const handlePayment = async () => {
@@ -222,7 +233,7 @@ const CartItems = () => {
                     <div className='flex flex-col w-full'>
                         <div>
                             <div className='grid grid-cols-3 gap-0'>
-                                <div className='bg-[#151a34] text-center p-2 text-sm font-semibold hover:bg-[#1f2544] cursor-pointer border border-black rounded-tl-lg'>
+                                <div  onClick={()=>handleDiscount()} className='bg-[#151a34] text-center p-2 text-sm font-semibold hover:bg-[#1f2544] cursor-pointer border border-black rounded-tl-lg'>
                                     <button className='buttonCart btn btn-primary'>Discount</button>
                                 </div>
                                 <div onClick={handlePaymentCash} className='bg-[#151a34] text-center p-2 text-sm font-semibold hover:bg-[#1f2544] cursor-pointer border border-black'>
@@ -244,6 +255,8 @@ const CartItems = () => {
                                  <>
                                     <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Tax 21%</p><p>{tax.toFixed(2)}€</p></div>
                                     <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Subtotal</p><p>{total.toFixed(2)}€</p></div>
+                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Descuento (%)</p><p>{discountPercent}%</p></div>
+                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Descuento (€)</p><p>{discountNum} €</p></div>
                                     <div className='flex flex-row items-center justify-between text-sm font-bold '><p>Total</p><p>{subTotal.toFixed(2)}€</p></div>
                                 </>
                                 )}
@@ -261,7 +274,16 @@ const CartItems = () => {
                     </div>
                 </div>
             </ScrollableFeed>
-             {invoiceShow && <Invoice closeInvoice={closeInvoice} paymentMode={paymentMode} transId={transId} total={totalFinal} subTotal={subTotalFinal} tax={taxFinal}/>} 
+            <DiscountModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                tittle={'Descuento a Realizar'}
+                size={''}
+                sendDataPercent={setDiscountPercent}
+                sendDataNum={setDiscountNum}
+
+            />
+            {invoiceShow && <Invoice closeInvoice={closeInvoice} paymentMode={paymentMode} transId={transId} total={totalFinal} subTotal={subTotalFinal} tax={taxFinal}/>} 
         </div >
     )
 }
