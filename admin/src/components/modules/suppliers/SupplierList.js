@@ -45,7 +45,6 @@ const SupplierList = () => {
             setTotalItemsCount(res.data.meta.total)
             setActivePage(res.data.meta.current_page)
             setIsLoading(false);
-            console.log(res.data.meta);
         })
     }
 

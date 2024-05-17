@@ -1,20 +1,20 @@
 import { Fragment, useRef, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { useSelector } from "react-redux"
-import { selectTotal } from '../../store/cartSlice'
+// import { useSelector } from "react-redux"
+// import { selectTotal } from '../../store/cartSlice'
 import { useReactToPrint } from 'react-to-print';
 import Link from '../../../assets/img/link.png';
 import axios from 'axios';
 import Constants from '../../../Constants';
 
-export default function Invoice({ closeInvoice, paymentMode, transId }) {
+export default function Invoice({ closeInvoice, paymentMode, transId, total, subTotal, tax }) {
     const [open, setOpen] = useState(true)
-    const cart = useSelector(state => state.cart);
+    // const cart = useSelector(state => state.cart);
     // const customer = useSelector(state => state.customer);
     const componentRef = useRef();
-    const total = useSelector(selectTotal);
-    const tax = (5.25 / 100) * total;
-    const cancelButtonRef = useRef(null);
+    // const total = useSelector(selectTotal);
+    // const tax = (5.25 / 100) * total;
+    // const cancelButtonRef = useRef(null);
     const [pedido, setPedido] = useState();
     const allEvents = () => {
         handlePrint();
@@ -25,9 +25,6 @@ export default function Invoice({ closeInvoice, paymentMode, transId }) {
     const getPedido = () => {
         axios.get(`${Constants.BASE_URL}/get-pedido/${transId}`).then(res=>{
             setPedido(res.data.data[0].productos);
-            console.log(res.data.data[0].productos);
-            console.log(typeof pedido)
-            console.log(typeof res.data.data[0].productos)
         })
     }
 
@@ -50,6 +47,7 @@ export default function Invoice({ closeInvoice, paymentMode, transId }) {
 
     useEffect(()=>{
         getPedido();
+        console.log('Invoice - Total:' + total);
     }, [])
 
     return (
@@ -114,25 +112,19 @@ export default function Invoice({ closeInvoice, paymentMode, transId }) {
                                             fontSize: "11px"
                                         }} className='font-normal divide-x divide-y divide-gray-300 '>
                                             <tr className='divide-x border-t border-gray-200 border-r border-l  divide-gray-300'>
-                                                <th className='px-4 p-1'>Producto</th>
-                                                <th className='px-4 p-1'>Cantidad</th>
-                                                <th className='px-4 p-1'>Precio(€)</th>
-                                                <th className='px-4 p-1'>Total(€)</th>
+                                                <th className='px-2  text-center p-1'>Producto</th>
+                                                <th className='px-2  text-center p-1'>Cantidad</th>
+                                                <th className='px-2  text-center p-1'>Precio(€)</th>
+                                                <th className='px-2  text-center p-1'>Total(€)</th>
                                             </tr>
                                             {pedido?.map((curr, i) => ( 
                                                 <tr className='divide-x  divide-gray-300 border-b  border-gray-200'>
-                                                    {/* {Object.keys(pedido).map((product) => (  */}
                                                         <>
-                                                        <td className='px-4 py-1'>{curr.name}</td>
-                                                        <td className='text-center px-4 py-1'>{curr.quantity}</td>
-                                                        <td className='text-center px-4 py-1'>{(curr.serial) / (curr.quantity)} €</td>
-                                                        <td className='text-center px-4 py-1'>{curr.serial} €</td>
-                                                        {/* <td className='px-4 py-1'>{curr.productos[product].name}</td>
-                                                        <td className='text-center px-4 py-1'>{curr.productos[product].quantity}</td>
-                                                        <td className='text-center px-4 py-1'>{(curr.productos[product].serial) / (curr.productos[product].quantity)} €</td>
-                                                        <td className='text-center px-4 py-1'>{curr.productos[product].serial} €</td> */}
+                                                        <td className='px-2 text-center py-1'>{curr.name}</td>
+                                                        <td className='px-2 text-center py-1'>{curr.quantity}</td>
+                                                        <td className='px-2 text-center py-1'>{(curr.serial) / (curr.quantity)} €</td>
+                                                        <td className='px-2 text-center py-1'>{curr.serial} €</td>
                                                         </>
-                                                    {/* ))}       */}
                                                 </tr>
                                             ))} 
                                         </table>
@@ -140,21 +132,21 @@ export default function Invoice({ closeInvoice, paymentMode, transId }) {
                                     <div className='flex justify-between text-xs pt-4'>
                                         <div></div>
                                         <div className='pr-4'>
-                                            <div className='flex space-x-5 '>
-                                                <p>SUBTOTAL : </p>
+                                            <div className='flex space-x-9'>
+                                                <p>Total : </p>
                                                 <p> {total} €</p>
                                             </div>
-                                            <div className='flex space-x-5 '>
-                                                <p>TAX RATE : </p>
+                                            <div className='flex space-x-9'>
+                                                <p>IVA(%): </p>
                                                 <p>21%</p>
                                             </div>
-                                            <div className='flex space-x-12 '>
-                                                <p>TAX : </p>
+                                            <div className='flex space-x-8'>
+                                                <p>IVA(€): </p>
                                                 <p> {tax.toFixed(2)} €</p>
                                             </div>
-                                            <div className='flex space-x-7 '>
-                                                <p>TOTAL :  </p>
-                                                <p> {(total + tax).toFixed(2)} €</p>
+                                            <div className='flex space-x-5'>
+                                                <p>Subtotal :  </p>
+                                                <p> {(subTotal).toFixed(2)} €</p>
                                             </div>
                                         </div>
                                     </div>
