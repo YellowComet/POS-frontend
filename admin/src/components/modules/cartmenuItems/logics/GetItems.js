@@ -1,8 +1,5 @@
 export const getItems = (category_id, subcategories) => {
-    // console.log(menus);
-    // console.log(category);
     const newArr = subcategories.filter(o => o.category_id === category_id);
-    // console.log(newArr.length);
     return newArr.length;
 }
 

@@ -78,8 +78,6 @@ const Category = () => {
                 setColorList(getBgColor($catlen));
 
             }
-            console.log(colorList);
-            console.log(colorList[0]);
         })
     }
     const getSubCategories = (category_id) => {

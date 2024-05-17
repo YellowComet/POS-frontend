@@ -43,7 +43,6 @@ const CategoryEdit = () => {
 
     const handleCategoryUpdate = () => {
         setIsLoading(true);
-        console.log(input);
         axios.put(`${Constants.BASE_URL}/category/${params.id}`, input).then(res=>{
             setIsLoading(false)
             Swal.fire({

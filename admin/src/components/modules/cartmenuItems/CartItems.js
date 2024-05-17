@@ -21,6 +21,10 @@ const CartItems = () => {
     const cart = useSelector(state => state.cart);
     const cartTotal = useSelector(quantityTotal);
     const total = useSelector(selectTotal);
+    const [totalFinal, setTotalFinal] = useState(0);
+    const [taxFinal, setTaxFinal] = useState(0);
+    const [subTotalFinal, setSubTotalFinal] = useState(0);
+
     const tax = (21 / 100) * total;
     const subTotal = total + tax;
     const [paymentMode, setPaymentMode] = useState("Tarjeta");
@@ -79,6 +83,9 @@ const CartItems = () => {
                 console.log(errors);
             })
             setPayment(true);
+            setTotalFinal(total);
+            setTaxFinal((21 / 100) * total);
+            setSubTotalFinal(total + tax);
             dispatch(removeAll());
         }
     }
@@ -204,7 +211,7 @@ const CartItems = () => {
                     </div>
                 </div>
             </ScrollableFeed>
-             {invoiceShow && <Invoice closeInvoice={closeInvoice} paymentMode={paymentMode} transId={transId} />} 
+             {invoiceShow && <Invoice closeInvoice={closeInvoice} paymentMode={paymentMode} transId={transId} total={totalFinal} subTotal={subTotalFinal} tax={taxFinal}/>} 
         </div >
     )
 }

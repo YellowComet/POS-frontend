@@ -9,6 +9,9 @@ export default function OrderData() {
     const [pedidos, setPedidos] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [invoiceShow, setInvoiceShow] = useState(false);
+    const [pedidoPrint, setPedidoPrint] = useState([]);
+    const [tax, setTax] = useState(0);
+
 
     const [itemsCountPerPage, setItemsCountPerPage] = useState(0);
     const [totalItemsCount, setTotalItemsCount] = useState(1);
@@ -30,7 +33,6 @@ export default function OrderData() {
         setIsLoading(true);
         axios.get(`${Constants.BASE_URL}/pedidos?page=${pageNumber}&search=${input.search}&order_by=${input.order_by}&per_page=${input.per_page}&direction=${input.direction}`).then(res=>{
             setPedidos(res.data.data);
-            console.log(res.data.data);
             setItemsCountPerPage(res.data.meta.per_page);
             setStartFrom(res.data.meta.from);
             setTotalItemsCount(res.data.meta.total)
@@ -39,11 +41,14 @@ export default function OrderData() {
         })
     }
 
-    const showInvoice = () => {
+    const showInvoice = (pedido) => {
+        setPedidoPrint(pedido);
+        setTax((21 / 100) * pedido.total);
         setInvoiceShow(true);
     }
 
     const closeInvoice = () => {
+        setPedidoPrint([]);
         setInvoiceShow(false);
     }
     
@@ -169,12 +174,11 @@ export default function OrderData() {
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-white">{curr.formaPago}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-white">{curr.total} €</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-white">{curr.subTotal} €</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-white">{curr.updated_at}</td>
+                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-white">{curr.created_at}</td>
                                             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 space-x-1">
-                                                <button onClick={()=>showInvoice()} className={'btn btn-sm btn-warning my-1'}>
+                                                <button onClick={()=>showInvoice(curr)} className={'btn btn-sm btn-warning my-1'}>
                                                     <i className="fa-solid fa-print" style={{color:"#ffffff"}}/> 
                                                 </button>
-                                                {invoiceShow && <Invoice closeInvoice={closeInvoice} paymentMode={curr.formaPago} transId={curr.transaction_id} />} 
                                                 <button onClick={()=>showInvoice()} className={'btn btn-sm btn-danger my-1'}>
                                                     <i className="fa-solid fa-rotate-left"/> 
                                                 </button>
@@ -183,6 +187,16 @@ export default function OrderData() {
                                     ))}
                                 </tbody>
                             </table>
+                            {invoiceShow && 
+                                    <Invoice
+                                        closeInvoice={closeInvoice}
+                                        paymentMode={pedidoPrint.formaPago}
+                                        transId={pedidoPrint.transaction_id}
+                                        total={pedidoPrint.total}
+                                        subTotal={pedidoPrint.subTotal}
+                                        tax={tax}
+                            />} 
+
                             {pedidos.length === 0 && (<p className="text-white text-center mt-4 mb-4">Sin Pedidos que Correspondan.</p>)}
                             <div className='card-footer d-flex justify-content-center'>
                             <nav className='pagination-sm'>
