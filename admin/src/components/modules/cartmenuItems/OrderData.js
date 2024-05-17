@@ -4,6 +4,11 @@ import axios from 'axios';
 import Constants from '../../../Constants';
 import Pagination from 'react-js-pagination';
 import Invoice from './Invoice'
+import { useDispatch } from "react-redux"
+import { add, removeAll } from "../../store/cartSlice"
+import { setTrue, setFalse, setId, setTotalPagado } from "../../store/returnSlice"
+
+import { useNavigate } from "react-router-dom";
 
 export default function OrderData() {
     const [pedidos, setPedidos] = useState([]);
@@ -11,6 +16,8 @@ export default function OrderData() {
     const [invoiceShow, setInvoiceShow] = useState(false);
     const [pedidoPrint, setPedidoPrint] = useState([]);
     const [tax, setTax] = useState(0);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
 
     const [itemsCountPerPage, setItemsCountPerPage] = useState(0);
@@ -25,8 +32,27 @@ export default function OrderData() {
         search : '',
     });
 
+    const handleReturn = (productos, id, total) => {
+        dispatch(removeAll());
+        productos.forEach(element => {
+            const { id, name, serial, quantity} = element;
+            const newData = { id, name, serial : serial, quantity: quantity };
+            if (quantity > 0) {
+                dispatch(add(newData))
+            }
+        });
+        dispatch(setTrue());
+        dispatch(setId(id));
+        dispatch(setTotalPagado(total));
+        navigate('/cartmenu');
+    }
+
     const handleInput = (e) => {
         setInput(prevState => ({...prevState, [e.target.name] : e.target.value}))
+    }
+
+    const handleRemoveCart = () => {
+        dispatch(removeAll());
     }
 
     const getPedidos = (pageNumber=1) => {
@@ -103,12 +129,12 @@ export default function OrderData() {
                             </div>
                         </div>
                         <div className='col'>
-                            <div className="d-grid">
+                            <div onClick={handleRemoveCart} className="d-grid">
                                 <Link className='inline-flex items-center btn btn-warning justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white shadow-sm sm:w-auto text-decoration-none' to="/">Home</Link>
                             </div>
                         </div>
                         <div className='col'>
-                            <div className="d-grid">
+                            <div onClick={handleRemoveCart} className="d-grid">
                                 <Link className='inline-flex items-center btn btn-danger justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white shadow-sm sm:w-auto text-decoration-none' to="/cartmenu">Cart</Link>
                             </div>
                         </div>
@@ -179,7 +205,7 @@ export default function OrderData() {
                                                 <button onClick={()=>showInvoice(curr)} className={'btn btn-sm btn-warning my-1'}>
                                                     <i className="fa-solid fa-print" style={{color:"#ffffff"}}/> 
                                                 </button>
-                                                <button onClick={()=>showInvoice()} className={'btn btn-sm btn-danger my-1'}>
+                                                <button onClick={()=>handleReturn(curr.productos, curr.transaction_id, curr.subTotal)} className={'btn btn-sm btn-danger my-1'}>
                                                     <i className="fa-solid fa-rotate-left"/> 
                                                 </button>
                                             </td>
