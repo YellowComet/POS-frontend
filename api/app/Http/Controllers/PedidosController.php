@@ -59,11 +59,16 @@ class PedidosController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @param UpdatePedidosRequest $request
+     * @param Pedidos $category
+     * @return JsonResponse
      */
-    public function update(UpdatePedidosRequest $request, Pedidos $pedidos)
+    final public function update(UpdatePedidosRequest $request, Pedidos $pedido):JsonResponse
     {
-        //
+        $pedido_data = $request->except('productos');
+        $pedido_data['productos'] = serialize($request->input('productos'));
+        $pedido->update($pedido_data);
+        return response()->json(['msg'=>'Pedido Update Successfully','cls'=>'success']);
     }
 
     /**

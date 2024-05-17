@@ -11,7 +11,7 @@ class UpdatePedidosRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class UpdatePedidosRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'comprador' => 'required|min:3|max:50|string',
+            'total' => 'required|numeric',
+            'subTotal' => 'required|numeric',
+            'formaPago' => 'required|min:3|max:50|string',
+            'descuento' => 'required|numeric',
+            'nproductos' => 'required|numeric',
+            'totalproductos' => 'required|numeric',
+            'productos' => 'required',
+            'transaction_id' => 'numeric|unique:pedidos',
         ];
     }
 }

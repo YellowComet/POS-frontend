@@ -34,7 +34,6 @@ class CategoryEditResource extends JsonResource
             'serial'=> $this->serial,
             'status'=> $this->status,
             'photo_preview'=> ImagesManager::prepareImageUrl(Category::THUMB_IMAGE_UPLOAD_PATH, $this->photo),
-
         ];
     }
 }

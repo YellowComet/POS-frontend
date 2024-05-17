@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { remove, removeAll, selectTotal, quantityTotal, sum, sub } from '../../store/cartSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import Constants from '../../../Constants';
-import { setTrue, setFalse, toggle, setId, resetId, setTotalPagado, resetTotalPagado } from "../../store/returnSlice"
+import { setFalse } from "../../store/returnSlice"
 
 
 const CartItems = () => {
@@ -70,22 +70,38 @@ const CartItems = () => {
     const handlePayment = async () => {
         if(payment){
             return;
-        }else{
+        }else {
             setPaymentMode('Tarjeta');
             const newData = { comprador: 'DIEGO', total: total, subTotal: subTotal, nproductos: cart.length, descuento: '0', formaPago: paymentMode, totalproductos: cartTotal, productos: cart }
-            axios.post(`${Constants.BASE_URL}/pedido`, newData).then(res=>{
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Has Pagado Correctamente",
-                showConfirmButton: false,
-                toast:true,
-                timer: 1500
-            });
-            setTransId(res.data.transaction_id);
-            }).catch(errors => {
-                console.log(errors);
-            })
+            if(isReturn){
+                axios.put(`${Constants.BASE_URL}/pedido/${returnId}`, newData).then(res=>{
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Devolución Correcta",
+                        showConfirmButton: false,
+                        toast:true,
+                        timer: 1500
+                    });
+                    setTransId(returnId);
+                    }).catch(errors => {
+                        console.log(errors);
+                    })
+            }else{
+                axios.post(`${Constants.BASE_URL}/pedido`, newData).then(res=>{
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Has Pagado Correctamente",
+                    showConfirmButton: false,
+                    toast:true,
+                    timer: 1500
+                });
+                setTransId(res.data.transaction_id);
+                }).catch(errors => {
+                    console.log(errors);
+                })
+            }
             setPayment(true);
             setTotalFinal(total);
             setTaxFinal((21 / 100) * total);
@@ -102,19 +118,35 @@ const CartItems = () => {
         }else{
             setPaymentMode('Cash');
             const newData = { comprador: 'DIEGO', total: total, subTotal: subTotal, nproductos: cart.length, descuento: '0', formaPago: paymentMode, totalproductos: cartTotal, productos: cart }
-            axios.post(`${Constants.BASE_URL}/pedido`, newData).then(res=>{
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Has Pagado Correctamente",
-                showConfirmButton: false,
-                toast:true,
-                timer: 1500
-            });
-            setTransId(res.data.transaction_id);
-            }).catch(errors => {
-                console.log(errors);
-            })
+            if(isReturn){
+                axios.put(`${Constants.BASE_URL}/pedido/${returnId}`, newData).then(res=>{
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Devolución Correcta",
+                        showConfirmButton: false,
+                        toast:true,
+                        timer: 1500
+                    });
+                    setTransId(returnId);
+                    }).catch(errors => {
+                        console.log(errors);
+                    })
+            }else{
+                axios.post(`${Constants.BASE_URL}/pedido`, newData).then(res=>{
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Has Pagado Correctamente",
+                    showConfirmButton: false,
+                    toast:true,
+                    timer: 1500
+                });
+                setTransId(res.data.transaction_id);
+                }).catch(errors => {
+                    console.log(errors);
+                })
+            }
             setPayment(true);
             dispatch(removeAll());
             dispatch(setFalse());
