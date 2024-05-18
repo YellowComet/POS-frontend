@@ -9,24 +9,25 @@ import PublicRouter from './components/router/PublicRouter'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
 function App() {
 
-  const [auth, setAuth] = useState(false);
+const [auth, setAuth] = useState(false);
 
-  useEffect( ()=>{
-    if (localStorage.token !== undefined){
-      setAuth(true);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`
-    }
+useEffect( ()=>{
+  if (localStorage.token !== undefined){
+    setAuth(true);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`
+  }
 }, [])
 
   return (
     <>
-      {auth ?
-            <RouterProvider router={PageRouter} /> :
+       {auth ?  
+             <RouterProvider router={PageRouter} />  
+                    : 
             <RouterProvider router={PublicRouter} />
-      }
-
+        } 
     </>
   );
 }

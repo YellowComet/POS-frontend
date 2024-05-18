@@ -1,10 +1,10 @@
 import React from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { createHashRouter } from 'react-router-dom';
 import Login from '../modules/auth/Login';
 import AuthLayout from '../layout/AuthLayout';
 import Error500 from '../modules/Error500';
 
-const PublicRouter = createBrowserRouter([
+const PublicRouter = createHashRouter([
     {
       path: '/',
       element: <AuthLayout />,

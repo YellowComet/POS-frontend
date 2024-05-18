@@ -1,7 +1,14 @@
 {
-  "name": "admin",
-  "version": "0.1.0",
-  "private": true,
+  "name": "yellowpos",
+  "author": {
+    "name": "Diego Miret",
+    "email": "dmirethalffter@gmail.com"
+  },
+  "description": "This is POS app",
+  "private": "false",
+  "version": "1.0.0",
+  "homepage": ".",
+  "main": "main.js",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
@@ -37,7 +44,33 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron-start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.yellowpos.id",
+    "includeSubNodeModules": "true",
+    "win": {
+      "target": "nsis",
+      "icon": "src/assets/img/link.ico"
+    },
+    "extends": null,
+    "files": [
+      "build/**/*",
+      "main.js",
+      "preload.js"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Yellowpos"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -58,6 +91,8 @@
     ]
   },
   "devDependencies": {
+    "electron": "^30.0.6",
+    "electron-builder": "^24.13.3",
     "sass": "^1.75.0",
     "tailwindcss": "^3.4.3"
   }

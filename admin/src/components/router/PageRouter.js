@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { createHashRouter } from 'react-router-dom';
 import Dashboard from '../modules/Dashboard';
 import Master from '../layout/Master';
 import Error500 from '../modules/Error500';
@@ -14,7 +14,7 @@ import SupplierList from '../modules/suppliers/SupplierList';
 import CartMenu from '../modules/CartMenu';
 import Orders from '../layout/Orders';
 
-const PageRouter = createBrowserRouter([
+const PageRouter = createHashRouter([
     {
       path: '/',
       element: <Master />,
