@@ -1,20 +1,10 @@
-// preload.js
-const { contextBridge, ipcRenderer } = require('electron');
+window.addEventListener('DOMContentLoaded', () => {
+  const replaceText = (selector, text) => {
+    const element = document.getElementById(selector);
+    if (element) element.innerText = text;
+  }
 
-// Exponer una API segura al renderizador
-contextBridge.exposeInMainWorld('api', {
-  send: (channel, data) => {
-    // restringir los canales que pueden ser utilizados
-    let validChannels = ['toMain'];
-    if (validChannels.includes(channel)) {
-      ipcRenderer.send(channel, data);
-    }
-  },
-  receive: (channel, func) => {
-    let validChannels = ['fromMain'];
-    if (validChannels.includes(channel)) {
-      // del canal al frontend
-      ipcRenderer.on(channel, (event, ...args) => func(...args));
-    }
+  for (const type of ['chrome', 'node', 'electron']) {
+    replaceText(`${type}-version`, process.versions[type]);
   }
 });
