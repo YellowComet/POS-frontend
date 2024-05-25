@@ -53,13 +53,30 @@
     "includeSubNodeModules": "true",
     "win": {
       "target": "nsis",
-      "icon": "src/assets/img/link.ico"
+      "icon": "assets/img/link.ico"
     },
     "extends": null,
     "files": [
       "build/**/*",
       "main.js",
-      "preload.js"
+      "preload.js",
+      "resources/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/api",
+        "to": "api",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "resources/composer/composer.phar",
+        "to": "composer.phar"
+      },
+      {
+        "from": "resources/mysql",
+        "to": "mysql",
+        "filter": ["**/*"]
+      }
     ],
     "directories": {
       "buildResources": "assets"
