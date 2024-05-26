@@ -59,24 +59,7 @@
     "files": [
       "build/**/*",
       "main.js",
-      "preload.js",
-      "resources/**/*"
-    ],
-    "extraResources": [
-      {
-        "from": "resources/api",
-        "to": "api",
-        "filter": ["**/*"]
-      },
-      {
-        "from": "resources/composer/composer.phar",
-        "to": "composer.phar"
-      },
-      {
-        "from": "resources/mysql",
-        "to": "mysql",
-        "filter": ["**/*"]
-      }
+      "preload.js"
     ],
     "directories": {
       "buildResources": "assets"

@@ -84,9 +84,9 @@ const SubCategoryList = () => {
           });
     }
 
-    useEffect(()=>{
-        getSubCategories()
-    }, [])
+    // useEffect(()=>{
+    //     getSubCategories()
+    // }, [])
 
     return (
         <>

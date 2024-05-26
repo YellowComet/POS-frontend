@@ -1,7 +1,5 @@
 import { Fragment, useRef, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-// import { useSelector } from "react-redux"
-// import { selectTotal } from '../../store/cartSlice'
 import { useReactToPrint } from 'react-to-print';
 import Link from '../../../assets/img/link.png';
 import axios from 'axios';
@@ -9,12 +7,7 @@ import Constants from '../../../Constants';
 
 export default function Invoice({ closeInvoice, paymentMode, transId, total, subTotal, tax }) {
     const [open, setOpen] = useState(true)
-    // const cart = useSelector(state => state.cart);
-    // const customer = useSelector(state => state.customer);
     const componentRef = useRef();
-    // const total = useSelector(selectTotal);
-    // const tax = (5.25 / 100) * total;
-    // const cancelButtonRef = useRef(null);
     const [pedido, setPedido] = useState();
     const allEvents = () => {
         handlePrint();
@@ -22,11 +15,11 @@ export default function Invoice({ closeInvoice, paymentMode, transId, total, sub
         closeInvoice();
     }
 
-    const getPedido = () => {
-        axios.get(`${Constants.BASE_URL}/get-pedido/${transId}`).then(res=>{
-            setPedido(res.data.data[0].productos);
-        })
-    }
+    const getPedidoRef = useRef(() => {
+        axios.get(`${Constants.BASE_URL}/get-pedido/${transId}`).then(res => {
+          setPedido(res.data.data[0].productos);
+        });
+    });
 
     function getDate() {
         const today = new Date();
@@ -46,8 +39,7 @@ export default function Invoice({ closeInvoice, paymentMode, transId, total, sub
     });
 
     useEffect(()=>{
-        getPedido();
-        console.log('Invoice - Total:' + total);
+        getPedidoRef.current();
     }, [])
 
     return (
@@ -79,7 +71,7 @@ export default function Invoice({ closeInvoice, paymentMode, transId, total, sub
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                                 <div>
                                     <div>
-                                        <div class="text-center">
+                                        <div className="text-center">
                                             <img alt='Logo' className="rounded ticketLogo mx-auto d-block" src={Link}/>
                                         </div>
                                         <h3 className='text-2xl font-semibold tracking-wider text-center'>Diego Miret Shop</h3>

@@ -84,9 +84,9 @@ const CategoryList = () => {
           });
     }
 
-    useEffect(()=>{
-        getCategories()
-    }, [])
+    // useEffect(()=>{
+    //     getCategories()
+    // }, [])
 
     return (
         <>
