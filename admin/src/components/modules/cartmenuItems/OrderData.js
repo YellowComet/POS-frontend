@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import Constants from '../../../Constants';
@@ -6,23 +6,20 @@ import Pagination from 'react-js-pagination';
 import Invoice from './Invoice'
 import { useDispatch } from "react-redux"
 import { add, removeAll } from "../../store/cartSlice"
-import { setTrue, setFalse, setId, setTotalPagado } from "../../store/returnSlice"
+import { setTrue, setId, setTotalPagado } from "../../store/returnSlice"
 
 import { useNavigate } from "react-router-dom";
 
 export default function OrderData() {
     const [pedidos, setPedidos] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
     const [invoiceShow, setInvoiceShow] = useState(false);
     const [pedidoPrint, setPedidoPrint] = useState([]);
     const [tax, setTax] = useState(0);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-
     const [itemsCountPerPage, setItemsCountPerPage] = useState(0);
     const [totalItemsCount, setTotalItemsCount] = useState(1);
-    const [startFrom, setStartFrom] = useState(1);
     const [activePage, setActivePage] = useState(1);
 
     const [input, setInput] = useState({
@@ -56,14 +53,11 @@ export default function OrderData() {
     }
 
     const getPedidos = (pageNumber=1) => {
-        setIsLoading(true);
         axios.get(`${Constants.BASE_URL}/pedidos?page=${pageNumber}&search=${input.search}&order_by=${input.order_by}&per_page=${input.per_page}&direction=${input.direction}`).then(res=>{
             setPedidos(res.data.data);
             setItemsCountPerPage(res.data.meta.per_page);
-            setStartFrom(res.data.meta.from);
             setTotalItemsCount(res.data.meta.total)
             setActivePage(res.data.meta.current_page)
-            setIsLoading(false);
         })
     }
 
@@ -78,9 +72,9 @@ export default function OrderData() {
         setInvoiceShow(false);
     }
     
-    useEffect(()=>{
-        getPedidos();
-    }, [])
+    // useEffect(()=>{
+    //     getPedidos();
+    // }, [])
     
     return (
         <div className="px-4 sm:px-6 lg:px-8">
@@ -190,8 +184,8 @@ export default function OrderData() {
                                                 <ul>
                                                     {Object.keys(curr.productos).map((product) => (
                                                         <>
-                                                        <li><p class="fw-bold"></p> {curr.productos[product].name}</li>
-                                                        <li><p class="fw-bold">x {curr.productos[product].quantity}</p></li>
+                                                        <li><p className="fw-bold"></p> {curr.productos[product].name}</li>
+                                                        <li><p className="fw-bold">x {curr.productos[product].quantity}</p></li>
                                                         </>
                                                     ))}
                                                 </ul>    

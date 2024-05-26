@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import CategoryDetails from './CategoryDetails'
 import { motion } from "framer-motion"
  import { getItems, getBgColor } from './logics/GetItems';
@@ -61,16 +61,14 @@ import Constants from '../../../Constants';
 // ]
 
 const Category = () => {
-    // const [categoryDetails, setCategoryDetails] = useState();
     const [categoryDetails2, setCategoryDetails2] = useState();
-    // const [selected, setSelected] = useState(false);
     const [id, setId] = useState();
     const [categoryList, setCategoryList] = useState([]);
     const [subCategoryList, setSubCategoryList] = useState([]);
     const [colorList, setColorList] = useState([]);
 
 
-    const getCategories = () => {
+    const getCategoriesRef = useRef(() => {
         axios.get(`${Constants.BASE_URL}/get-category-list`).then(res=>{
             setCategoryList(res.data);
             let $catlen = (Object.keys(res.data).length);
@@ -78,19 +76,20 @@ const Category = () => {
                 setColorList(getBgColor($catlen));
 
             }
-        })
-    }
+        });
+    });
+
     const getSubCategories = (category_id) => {
         axios.get(`${Constants.BASE_URL}/get-subcategory-list/${category_id}`).then(res=>{
             setCategoryDetails2(res.data);
         })
     }
 
-    const getAllSubCategories = () => {
+    const getAllSubCategoriesRef = useRef(() => {
         axios.get(`${Constants.BASE_URL}/get-subcategory-list2/`).then(res=>{
             setSubCategoryList(res.data);
-        })
-    }
+        });
+    });
 
     const allEvets = (id) => {
         getSubCategories(id)
@@ -98,8 +97,8 @@ const Category = () => {
     }
 
     useEffect(() => {
-        getCategories();
-        getAllSubCategories();
+        getCategoriesRef.current();
+        getAllSubCategoriesRef.current();
     }, []);
 
     return (
@@ -121,7 +120,7 @@ const Category = () => {
                                     </div>
                                     {
                                         id === curr.id && (<div className='pr-2 bg-black opacity-40 h-full-category'>
-                                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mt-8 font-bold  ml-1 w-6 h-6">
+                                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="mt-8 font-bold  ml-1 w-6 h-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                             </svg>
 

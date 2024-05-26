@@ -84,9 +84,9 @@ const SupplierList = () => {
           });
     }
 
-    useEffect(()=>{
-        getSuppliers()
-    }, [])
+    // useEffect(()=>{
+    //     getSuppliers()
+    // }, [])
 
     return (
         <>

@@ -142,12 +142,12 @@ const CartItems = () => {
                         {cart.length > 0 ? (
                             <>
                                 <div className=''>
-                                <ol class="list-group list-group-numbered">
+                                <ol className="list-group list-group-numbered">
                                     <ul className="divide-y divide-black cartList">
                                         <AnimatePresence>
                                             {cart.map((curr, index) => (
                                                 <motion.li initial={{ x: 100 }} animate={{ x: 0 }} transition={{ duration: 0.2 }} exit={{ y: "50%", opacity: 0, scale: 0.5 }} key={index}>
-                                                    <a href="#" className="block hover:rounded-md text-decoration-none">
+                                                    {/* <button className="block hover:rounded-md text-decoration-none"> */}
                                                         <div className="px-4 py-2">
                                                             <div className="flex items-center justify-between">
                                                                 <p className="truncate text-sm font-medium text-white">{index + 1}. &nbsp;{curr.name} &nbsp; </p>
@@ -160,24 +160,24 @@ const CartItems = () => {
                                                             <div className="sm:flex sm:justify-between">
                                                                 <div className="sm:flex">
                                                                     <div className='mt-2 flex text-xs space-x-3 items-center cartItems'>
-                                                                        <svg onClick={() => inCreament(curr)} fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer w-5 h-5 bg-[#1f2544] rounded-sm p-1 ">
-                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                                        <svg onClick={() => inCreament(curr)} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="cursor-pointer w-5 h-5 bg-[#1f2544] rounded-sm p-1 ">
+                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                                                         </svg>
                                                                         <p className='font-semibold text-md'>{curr.quantity}</p>
-                                                                        <svg onClick={() => deCreament(curr)} fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer w-5 h-5 bg-[#1f2544] rounded-sm p-1 ">
-                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
+                                                                        <svg onClick={() => deCreament(curr)} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="cursor-pointer w-5 h-5 bg-[#1f2544] rounded-sm p-1 ">
+                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
                                                                         </svg>
                                                                     </div>
                                                                     <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
 
-                                                                        &nbsp;<svg onClick={(e) => handleRemove(e, curr.id)} fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                                        &nbsp;<svg onClick={(e) => handleRemove(e, curr.id)} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 cursor-pointer">
+                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                                                         </svg>
                                                                     </p>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </a>
+                                                    {/* </button> */}
                                                 </motion.li>
                                             ))}
                                         </AnimatePresence>
@@ -188,7 +188,7 @@ const CartItems = () => {
                         ) : (
                             <>
                                 <div className='flex flex-col items-center justify-center mt-24'>
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-[#474c54]">
+                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-8 h-8 text-[#474c54]">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                                     </svg>
                                     <small className='text-[#474c54]'>No items.</small>

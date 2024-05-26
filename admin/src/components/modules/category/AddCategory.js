@@ -13,7 +13,6 @@ const AddCategory = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-
     const handleInput = (e) => {
         if(e.target.name === 'name'){
             let slug = e.target.value
@@ -138,7 +137,7 @@ const AddCategory = () => {
                                             placeholder={'Select Category Status'}
                                         >
                                             <option disabled={true}>Select Category Status</option>
-                                            <option value={1} selected="selected">Active</option>
+                                            <option value={1}>Active</option>
                                             <option value={0}>Inactive</option>
                                         </select>
                                         <p className="login-error-msg">
