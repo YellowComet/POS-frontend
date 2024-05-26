@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PageHead from '../../partials/PageHead';
 import CardHeader from "../../partials/miniComponent/CardHeader";
 import Constants from '../../../Constants';
@@ -83,10 +83,6 @@ const SupplierList = () => {
             }
           });
     }
-
-    // useEffect(()=>{
-    //     getSuppliers()
-    // }, [])
 
     return (
         <>

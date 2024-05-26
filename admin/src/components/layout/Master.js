@@ -70,10 +70,10 @@ const Master = () => {
                     <ul className="navbar-nav ml-auto">
 
                         <li className="nav-item dropdown no-arrow d-sm-none">
-                            <a className="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                            <button className="nav-link dropdown-toggle" id="searchDropdown"
                                 data-bs-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i className="fas fa-search fa-fw"></i>
-                            </a>
+                            </button>
                             <div className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                 aria-labelledby="searchDropdown">
                                 <form className="form-inline mr-auto w-100 navbar-search">
@@ -91,44 +91,30 @@ const Master = () => {
                             </div>
                         </li>
 
-                        <li className="nav-item dropdown no-arrow mx-1">
-                            <a className="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i className="fas fa-envelope fa-fw"></i>
-                            </a>
-                            <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 className="dropdown-header">
-                                    Message Center
-                                </h6>
-                            </div>
-                        </li>
-
                         <div className="topbar-divider d-none d-sm-block"></div>
 
-                        <li className="nav-item dropdown no-arrow">
-                            <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                        <li className="nav-item dropdown no-arrow mr-5">
+                            <button className="nav-link dropdown-toggle" id="userDropdown"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span className="mr-2 d-none d-lg-inline text-gray-600 small">{localStorage.name !== undefined ? localStorage.name : null}</span>
-                                <img className="img-profile rounded-circle"
+                                <img alt='logo' className="img-profile rounded-circle"
                                     src={link}/>
-                            </a>
+                            </button>
                             <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a className="dropdown-item" href="#">
+                                <button className="dropdown-item" >
                                     <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
-                                </a>
-                                <a className="dropdown-item" href="#">
+                                </button>
+                                <button className="dropdown-item" >
                                     <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Settings
-                                </a>
-                                <a className="dropdown-item" href="#">
+                                </button>
+                                <button className="dropdown-item">
                                     <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Activity Log
-                                </a>
+                                </button>
                                 <div className="dropdown-divider"></div>
-                                {/* <button onClick={handleLogout} className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"> */}
                                 <button onClick={handleLogout} className="dropdown-item">
 
                                     <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
