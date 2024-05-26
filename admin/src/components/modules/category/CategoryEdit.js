@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import Swal from 'sweetalert2';
 import CardHeader from "../../partials/miniComponent/CardHeader";
@@ -17,11 +17,12 @@ const CategoryEdit = () => {
     const [isLoading, setIsLoading] = useState(false);
 
 
-    const getCategory = () => {
+    const getCategoryRef =  useRef(() => {
         axios.get(`${Constants.BASE_URL}/category/${params.id}`, input).then(res=>{
             setInput(res.data.data);
-        })
-    }
+        });
+    });
+    
     const handleInput = (e) => {
         if(e.target.name === 'name'){
             let slug = e.target.value
@@ -72,7 +73,7 @@ const CategoryEdit = () => {
     }
 
     useEffect(()=>{
-        getCategory()
+        getCategoryRef.current()
     },[])
     
     return (

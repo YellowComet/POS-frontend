@@ -1,12 +1,10 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import { removeAll } from "../../store/cartSlice";
 import { setFalse } from "../../store/returnSlice";
 import { useDispatch } from 'react-redux'
 
 const RightDivCart = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleRemoveCart = () => {
