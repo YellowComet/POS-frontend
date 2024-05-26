@@ -120,8 +120,8 @@ const Category = () => {
                                     </div>
                                     {
                                         id === curr.id && (<div className='pr-2 bg-black opacity-40 h-full-category'>
-                                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="mt-8 font-bold  ml-1 w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                            <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="mt-8 font-bold  ml-1 w-6 h-6">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                             </svg>
 
                                         </div>)

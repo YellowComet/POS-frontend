@@ -49,12 +49,12 @@ const CategoryDetails = ({ categoryDetails }) => {
                                     </div>
                                 </div>
                                 <div className='flex flex-col items-center justify-between'>
-                                    <svg onClick={() => inCreament(curr.id)} fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="cursor-pointer w-6 h-6 bg-[#0e1227] rounded-sm p-1 ">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                    <svg onClick={() => inCreament(curr.id)} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="cursor-pointer w-6 h-6 bg-[#0e1227] rounded-sm p-1 ">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                     </svg>
                                     <p className='font-semibold text-2xl'>{id === curr.id ? quantity : "0"}</p>
-                                    <svg onClick={() => deCrement(curr.id)} fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="cursor-pointer w-6 h-6 bg-[#0e1227] rounded-sm p-1 ">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
+                                    <svg onClick={() => deCrement(curr.id)} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="cursor-pointer w-6 h-6 bg-[#0e1227] rounded-sm p-1 ">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
                                     </svg>
                                 </div>
                             </motion.div>
@@ -74,12 +74,12 @@ const CategoryDetails = ({ categoryDetails }) => {
                                     </div>
                                 </div>
                                 <div className='flex flex-col items-center justify-between'>
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="cursor-not-allowed w-6 h-6 bg-[#0e1227] rounded-sm p-1 ">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                    <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="cursor-not-allowed w-6 h-6 bg-[#0e1227] rounded-sm p-1 ">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                     </svg>
                                     <p className='font-semibold text-2xl'>{id === curr.id ? quantity : "0"}</p>
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="cursor-not-allowed w-6 h-6 bg-[#0e1227] rounded-sm p-1 ">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
+                                    <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="cursor-not-allowed w-6 h-6 bg-[#0e1227] rounded-sm p-1 ">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
                                     </svg>
                                 </div>
                             </motion.div>
