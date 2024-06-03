@@ -8,6 +8,7 @@ import PageRouter from './components/router/PageRouter'
 import PublicRouter from './components/router/PublicRouter'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './i18n';
 
 
 function App() {
