@@ -1,10 +1,14 @@
 import React from 'react';
 import PageHead from '../partials/PageHead';
+import { useTranslation } from 'react-i18next';
 
 const Dashboard = () => {
+
+    const { t } = useTranslation();
+
     return (
         <>
-                <PageHead title={'Dashboard'} title2={'Testing Results'} pageTitle={'Dashboard | Test'}/>
+                <PageHead title={t("dashboard-tittle")} title2={t("dashboard-tittle2")} pageTitle={t("dashboard-head")}/>
                 {/* <!-- Content Row --> */}
                 <div className="row">
 

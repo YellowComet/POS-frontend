@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Sidebar = () => {
 
@@ -8,6 +9,8 @@ const Sidebar = () => {
         $("body").toggleClass("sidebar-toggled");
         $(".sidebar").toggleClass("toggled");
     }
+
+    const { t } = useTranslation();
 
     return (
         <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -19,13 +22,13 @@ const Sidebar = () => {
         <li className="nav-item active">
             <Link className="nav-link" to="/">
                 <i className="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></Link>
+                <span>{t("sidebar-dashboard")}</span></Link>
         </li>
 
         <hr className="sidebar-divider"/>
 
         <div className="sidebar-heading">
-            Management
+        {t("sidebar-management")}
         </div>
 
         {/* Category NavBar */}
@@ -33,16 +36,16 @@ const Sidebar = () => {
             <button className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                 aria-expanded="true" aria-controls="collapseTwo">
                 <i className="fa-solid fa-icons"></i>
-                <span> Categories</span> <i className="fas fa-angle-down"></i>
+                <span> {t("sidebar-categories")}</span> <i className="fas fa-angle-down"></i>
             </button>
             <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                 <div className="bg-white py-2 collapse-inner rounded">
-                    <h6 className="collapse-header">Custom Components:</h6>
+                    <h6 className="collapse-header">{t("sidebar-components")}:</h6>
                     <Link className="collapse-item" to="/category">
-                        <i className="fa-solid fa-list"></i> Category List
+                        <i className="fa-solid fa-list"></i> {t("sidebar-categorylist")}
                     </Link>
                     <Link className="collapse-item" to="/category/create">
-                        <i className="fa-solid fa-plus"></i> Add Category
+                        <i className="fa-solid fa-plus"></i> {t("sidebar-categoryadd")}
                     </Link>
                 </div>
             </div>
@@ -53,16 +56,16 @@ const Sidebar = () => {
             <button className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#sub_category"
                 aria-expanded="false" aria-controls="collapseTwo">
                 <i className="fa-brands fa-product-hunt"></i>
-                <span> Sub-Categories</span> <i className="fas fa-angle-down"></i>
+                <span> {t("sidebar-subcategories")}</span> <i className="fas fa-angle-down"></i>
             </button>
             <div id="sub_category" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                 <div className="bg-white py-2 collapse-inner rounded">
-                    <h6 className="collapse-header">Custom Components:</h6>
+                    <h6 className="collapse-header">{t("sidebar-components")}:</h6>
                     <Link className="collapse-item" to="/sub-category">
-                        <i className="fa-solid fa-list"></i> Sub-Category List
+                        <i className="fa-solid fa-list"></i> {t("sidebar-subcategorylist")}
                     </Link>
                     <Link className="collapse-item" to="/sub-category/create">
-                        <i className="fa-solid fa-plus"></i>  Add Sub-Category
+                        <i className="fa-solid fa-plus"></i> {t("sidebar-subcategoryadd")}
                     </Link>
                 </div>
             </div>
@@ -73,16 +76,16 @@ const Sidebar = () => {
             <button className="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#supplier"
                 aria-expanded="false" aria-controls="collapseTwo">
                 <i className="fa-solid fa-layer-group"></i>
-                <span> Supplier</span> <i className="fas fa-angle-down"></i>
+                <span> {t("sidebar-supplier")}</span> <i className="fas fa-angle-down"></i>
             </button>
             <div id="supplier" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                 <div className="bg-white py-2 collapse-inner rounded">
-                    <h6 className="collapse-header">Custom Components:</h6>
+                    <h6 className="collapse-header">{t("sidebar-components")}:</h6>
                     <Link className="collapse-item" to="/supplier">
-                        <i className="fa-solid fa-list"></i> Supplier List
+                        <i className="fa-solid fa-list"></i> {t("sidebar-supplierlist")}
                     </Link>
                     <Link className="collapse-item" to="/supplier/create">
-                        <i className="fa-solid fa-plus"></i>  Supplier Add
+                        <i className="fa-solid fa-plus"></i>  {t("sidebar-supplieradd")}
                     </Link>
                 </div>
             </div>
@@ -92,14 +95,14 @@ const Sidebar = () => {
             <button className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseUtilities"
                 aria-expanded="true" aria-controls="collapseUtilities">
                 <i className="fas fa-fw fa-wrench"></i>
-                <span>Utilities</span><i className="fas fa-angle-down"></i>
+                <span> {t("sidebar-utilities")}</span><i className="fas fa-angle-down"></i>
             </button>
             <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities"
                 data-bs-parent="#accordionSidebar">
                 <div className="bg-white py-2 collapse-inner rounded">
-                    <h6 className="collapse-header">Custom Utilities:</h6>
-                    <Link className="collapse-item" to="/cartmenu">Cart</Link>
-                    <Link className="collapse-item" to="/orders">Orders</Link>
+                    <h6 className="collapse-header">{t("sidebar-components")}:</h6>
+                    <Link className="collapse-item" to="/cartmenu">{t("sidebar-cart")}</Link>
+                    <Link className="collapse-item" to="/orders">{t("sidebar-orders")}</Link>
                 </div>
             </div>
         </li>

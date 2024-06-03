@@ -48,7 +48,7 @@ const Master = () => {
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
         console.log("hola");
-      };
+    };
 
     const { t } = useTranslation();
 
