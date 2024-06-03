@@ -1,1 +1,24 @@
-{   "search-text": "Serch for...",   "profile": "Profile", "settings": "Settings" }
+{   
+    "search-text": "Serch for...",
+    "profile": "Profile",
+    "settings": "Settings",
+    "sidebar-dashboard": "Dashboard",
+    "sidebar-management": "Management",
+    "sidebar-categories": "Categories",
+    "sidebar-components": "Funtionalities",
+    "sidebar-categorylist": "Category List",
+    "sidebar-categoryadd": "Add Category",
+    "sidebar-subcategories": "Products",
+    "sidebar-subcategorylist": "Product List",
+    "sidebar-subcategoryadd": "Add Product",
+    "sidebar-supplier": "Suppliers",
+    "sidebar-supplierlist": "Suplier List",
+    "sidebar-supplieradd": "Add Suplier",
+    "sidebar-utilities": "Utilities",
+    "sidebar-cart": "Cart",
+    "sidebar-orders": "Orders",
+    "dashboard-tittle": "Dashboard",
+    "dashboard-tittle2": "Earning Information",
+    "dashboard-head": "Dashboard"
+
+}

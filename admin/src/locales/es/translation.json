@@ -1,1 +1,23 @@
-{   "search-text": "Serch for...",  "profile": "Perfil", "settings": "Ajustes" }
+{   
+    "search-text": "Serch for...",
+    "profile": "Perfil",
+    "settings": "Ajustes",
+    "sidebar-dashboard": "Panel Central",
+    "sidebar-management": "Gestión Productos",
+    "sidebar-categories": "Categorias",
+    "sidebar-components": "Funcionalidades",
+    "sidebar-categorylist": "Lista de Categorias",
+    "sidebar-categoryadd": "Añadir Categoria",
+    "sidebar-subcategories": "Productos",
+    "sidebar-subcategorylist": "Lista de Productos",
+    "sidebar-subcategoryadd": "Añadir Producto",
+    "sidebar-supplier": "Fabricante",
+    "sidebar-supplierlist": "Lista de Fabricantes",
+    "sidebar-supplieradd": "Añadir Fabricante",
+    "sidebar-utilities": "Utilidades",
+    "sidebar-cart": "Caja de Pago",
+    "sidebar-orders": "Pedidos",
+    "dashboard-tittle": "Panel de Control",
+    "dashboard-tittle2": "Información de Ventas",
+    "dashboard-head": "Panel de Control"
+}
