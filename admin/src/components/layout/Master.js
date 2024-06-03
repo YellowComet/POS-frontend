@@ -8,6 +8,9 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import Constants from '../../Constants';
 import GlobalFunction from '../../GlobalFunction';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../partials/LanguageSwitcher';
+import i18n from '../../i18n';
 
 const Master = () => {
 
@@ -42,6 +45,13 @@ const Master = () => {
           });
     }
 
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+        console.log("hola");
+      };
+
+    const { t } = useTranslation();
+
     return (
     <>
         <div id="wrapper">
@@ -53,11 +63,12 @@ const Master = () => {
                     <button onClick={handleSidebar} id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
                         <i className="fa fa-bars"></i>
                     </button>
-
+                    <button onClick={() => changeLanguage('en')}>English</button>
+                    <button onClick={() => changeLanguage('es')}>Español</button>
                     <form
                         className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div className="input-group">
-                            <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text" className="form-control bg-light border-0 small" placeholder={t('search-text')}
                                 aria-label="Search" aria-describedby="basic-addon2"/>
                             <div className="input-group-append">
                                 <button className="btn btn-primary" type="button">
@@ -104,11 +115,11 @@ const Master = () => {
                                 aria-labelledby="userDropdown">
                                 <button className="dropdown-item" >
                                     <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                    {t("profile")}
                                 </button>
                                 <button className="dropdown-item" >
                                     <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
+                                    {t("settings")}
                                 </button>
                                 <button className="dropdown-item">
                                     <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
