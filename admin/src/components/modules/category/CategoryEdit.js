@@ -6,6 +6,7 @@ import Constants from '../../../Constants';
 import PageHead from '../../partials/PageHead';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 const CategoryEdit = () => {
     
@@ -15,6 +16,7 @@ const CategoryEdit = () => {
     const [input, setInput] = useState({status : 1});
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
+    const { t } = useTranslation();
 
 
     const getCategoryRef =  useRef(() => {

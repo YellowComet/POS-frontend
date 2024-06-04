@@ -5,6 +5,7 @@ import Constants from '../../../Constants';
 import Swal from 'sweetalert2';
 import CardHeader from "../../partials/miniComponent/CardHeader";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const AddCategory = () => {
 
@@ -12,6 +13,7 @@ const AddCategory = () => {
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const handleInput = (e) => {
         if(e.target.name === 'name'){
@@ -64,13 +66,13 @@ const AddCategory = () => {
 
     return (
         <>
-            <PageHead title={'Category'} title2={'Add Category'} pageTitle={'Add Category'}/>
+            <PageHead title={t("category-tittle")} title2={t("category-tittle2")} pageTitle={t("category-head")}/>
             <div className="row">
                 <div className="col-md-12">
                     <div className="card">
                     <div className="card-header">
                         <CardHeader 
-                            title={'Add Category'}
+                            title={t("category-tittle2")}
                             link={'/category'}
                             icon={'fa-list'}
                             button_text={'List'}
@@ -80,14 +82,14 @@ const AddCategory = () => {
                             <div className="row">
                                 <div className="col-md-6">
                                     <label className="w-100 mt-4">
-                                        <p>Name</p>
+                                        <p>{t("category-name")}</p>
                                         <input
                                             className={errors.name !== undefined ? 'form-control mt-2 is-invalid' : 'form-control mt-2'}
                                             type={'text'}
                                             name={'name'}
                                             value={input.name}
                                             onChange={handleInput}
-                                            placeholder={'Enter Category Name'}
+                                            placeholder={t("category-enter-name")}
                                         />
                                         <p className="login-error-msg">
                                         <small>{errors.name !== undefined ? errors.name[0] : null}</small>
@@ -96,14 +98,14 @@ const AddCategory = () => {
                                 </div>
                                 <div className="col-md-6">
                                     <label className="w-100 mt-4">
-                                        <p>Slug</p>
+                                        <p>{t("category-slug")}</p>
                                         <input
                                             className={errors.slug !== undefined ? 'form-control mt-2 is-invalid' : 'form-control mt-2'}
                                             type={'text'}
                                             name={'slug'}
                                             value={input.slug}
                                             onChange={handleInput}
-                                            placeholder={'Enter Category Slug'}
+                                            placeholder={t("category-enter-slug")}
                                         />
                                         <p className="login-error-msg">
                                         <small>{errors.slug !== undefined ? errors.slug[0] : null}</small>
@@ -112,14 +114,14 @@ const AddCategory = () => {
                                 </div>
                                 <div className="col-md-6">
                                     <label className="w-100 mt-4">
-                                        <p>Serial</p>
+                                        <p>{t("category-serial")}</p>
                                         <input
                                             className={errors.serial !== undefined ? 'form-control mt-2 is-invalid' : 'form-control mt-2'}
                                             type={'number'}
                                             name={'serial'}
                                             value={input.serial}
                                             onChange={handleInput}
-                                            placeholder={'Enter Category Serial'}
+                                            placeholder={t("category-enter-serial")}
                                         />
                                         <p className="login-error-msg">
                                         <small>{errors.serial !== undefined ? errors.serial[0] : null}</small>
@@ -128,17 +130,17 @@ const AddCategory = () => {
                                 </div>
                                 <div className="col-md-6">
                                     <label className="w-100 mt-4">
-                                        <p>Status</p>
+                                        <p>{t("category-status")}</p>
                                         <select
                                             className={errors.status !== undefined ? 'form-control mt-2 is-invalid' : 'form-control mt-2'}
                                             name={'status'}
                                             value={input.status}
                                             onChange={handleInput}
-                                            placeholder={'Select Category Status'}
+                                            placeholder={t("category-status-select")}
                                         >
-                                            <option disabled={true}>Select Category Status</option>
-                                            <option value={1}>Active</option>
-                                            <option value={0}>Inactive</option>
+                                            <option disabled={true}>{t("category-status-select")}</option>
+                                            <option value={1}>{t("category-status-active")}</option>
+                                            <option value={0}>{t("category-status-inactive")}</option>
                                         </select>
                                         <p className="login-error-msg">
                                         <small>{errors.status !== undefined ? errors.status[0] : null}</small>
@@ -147,13 +149,13 @@ const AddCategory = () => {
                                 </div>
                                 <div className="col-md-6">
                                     <label className="w-100 mt-4">
-                                        <p>Description</p>
+                                        <p>{t("category-description")}</p>
                                         <textarea
                                             className={errors.description !== undefined ? 'form-control mt-2 is-invalid' : 'form-control mt-2'}
                                             name={'description'}
                                             value={input.description}
                                             onChange={handleInput}
-                                            placeholder={'Enter Category Description'}
+                                            placeholder={t("category-enter-description")}
                                         />
                                         <p className="login-error-msg">
                                         <small>{errors.description !== undefined ? errors.description[0] : null}</small>
@@ -162,13 +164,12 @@ const AddCategory = () => {
                                 </div>
                                 <div className="col-md-6">
                                     <label className="w-100 mt-4">
-                                        <p>Photo</p>
+                                        <p>{t("category-photo")}</p>
                                         <input
                                             className={errors.photo !== undefined ? 'form-control mt-2 is-invalid' : 'form-control mt-2'}
                                             type={'file'}
                                             name={'photo'}
                                             onChange={handlePhoto}
-                                            placeholder={'Enter Category Description'}
                                         />
                                         <p className="login-error-msg">
                                         <small>{errors.photo !== undefined ? errors.photo[0] : null}</small>
