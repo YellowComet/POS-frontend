@@ -19,6 +19,22 @@
     "sidebar-orders": "Orders",
     "dashboard-tittle": "Dashboard",
     "dashboard-tittle2": "Earning Information",
-    "dashboard-head": "Dashboard"
+    "dashboard-head": "Dashboard",
+    "category-tittle": "Category",
+    "category-tittle2": "New Category",
+    "category-head": "New Category",
+    "category-name": "Name",
+    "category-slug": "Slug",
+    "category-serial": "Price",
+    "category-status": "Status",
+    "category-status-select": "Select Category Status",
+    "category-status-active": "Active",
+    "category-status-inactive": "Inactive",
+    "category-photo": "Photo",
+    "category-description": "Description",
+    "category-enter-name": "Enter Category Name",
+    "category-enter-slug": "Enter Category Name",
+    "category-enter-serial": "Enter Category Price",
+    "category-enter-description": "Enter Category Description"
 
 }

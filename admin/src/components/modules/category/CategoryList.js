@@ -10,8 +10,11 @@ import CategoryDetailsModal from '../../partials/modals/CategoryDetailsModal';
 import Swal from 'sweetalert2';
 import Loader from '../../partials/miniComponent/Loader';
 import NoDataFound from '../../partials/miniComponent/NoDataFound';
+import { useTranslation } from 'react-i18next';
 
 const CategoryList = () => {
+
+    const { t } = useTranslation();
 
     const [input, setInput] = useState({
         order_by : 'serial',

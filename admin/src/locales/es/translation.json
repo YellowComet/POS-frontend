@@ -19,5 +19,21 @@
     "sidebar-orders": "Pedidos",
     "dashboard-tittle": "Panel de Control",
     "dashboard-tittle2": "Información de Ventas",
-    "dashboard-head": "Panel de Control"
+    "dashboard-head": "Panel de Control",
+    "category-tittle": "Categoria",
+    "category-tittle2": "Nueva Categoria",
+    "category-head": "Nueva Categoria",
+    "category-name": "Nombre",
+    "category-slug": "Identificativo",
+    "category-serial": "Precio",
+    "category-status": "Estado",
+    "category-status-select": "Seleccione Estado",
+    "category-status-active": "Activo",
+    "category-status-inactive": "Inactivo",
+    "category-photo": "Foto",
+    "category-description": "Descripción",
+    "category-enter-name": "Nombre de Categoria",
+    "category-enter-slug": "Identificador de Categoria",
+    "category-enter-serial": "Precio Categoria",
+    "category-enter-description": "Descripción Categoria"
 }
