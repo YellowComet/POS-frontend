@@ -89,13 +89,13 @@ const CategoryList = () => {
 
     return (
         <>
-            <PageHead title={'Category'} title2={'Category List'} pageTitle={'Category List'}/>
+            <PageHead title={t("categorylist-tittle")} title2={t("categorylist-tittle2")} pageTitle={t("categorylist-head")}/>
             <div className="row">
                 <div className="col-md-12">
                     <div className="card mb-4">
                         <div className="card-header">
                             <CardHeader 
-                                title={'Category List'}
+                                title={t("categorylist-tittle2")}
                                 link={'/category/create'}
                                 icon={'fa-add'}
                                 button_text={'Add Category'}
@@ -106,7 +106,7 @@ const CategoryList = () => {
                                 <div className='row'>
                                     <div className='col-md-3'>
                                         <label className='w-100 search-label'>
-                                            <p>Search</p>
+                                            <p>{t("categorylist-search")}</p>
                                             <input
                                             className="form-control form-control-sm"
                                             type={'search'}
@@ -119,24 +119,24 @@ const CategoryList = () => {
                                     </div>
                                     <div className='col-md-3'>
                                         <label className='w-100'>
-                                            <p>Order By</p>
+                                            <p>{t("categorylist-order")}</p>
                                             <select
                                                 className="form-select form-select-sm"
                                                 name={'order_by'}
                                                 value={input.order_by}
                                                 onChange={handleInput}
                                             >
-                                                <option value={'name'}>Name</option>
-                                                <option value={'created_at'}>Created_at</option>
-                                                <option value={'updated_at'}>Updated_at</option>
-                                                <option value={'serial'}>Serial</option>
-                                                <option value={'status'}>Status</option>
+                                                <option value={'name'}>{t("categorylist-order-name")}</option>
+                                                <option value={'created_at'}>{t("categorylist-order-create")}</option>
+                                                <option value={'updated_at'}>{t("categorylist-order-update")}</option>
+                                                <option value={'serial'}>{t("categorylist-order-serial")}</option>
+                                                <option value={'status'}>{t("categorylist-order-status")}</option>
                                             </select>
                                         </label>
                                     </div>
                                     <div className='col-md-2'>
                                         <label className='w-100'>
-                                            <p>Order Direction</p>
+                                            <p>{t("categorylist-order-direction")}</p>
                                             <select
                                                 className="form-select form-select-sm"
                                                 name={'direction'}
@@ -150,7 +150,7 @@ const CategoryList = () => {
                                     </div>
                                     <div className='col-md-2'>
                                         <label className='w-100'>
-                                            <p>Per Page</p>
+                                            <p>{t("categorylist-order-perpage")}</p>
                                             <select
                                                 className="form-select form-select-sm"
                                                 name={'per_page'}
@@ -168,7 +168,7 @@ const CategoryList = () => {
                                     <div className='col-md-2'>
                                         <div className="d-grid mt-4">
                                             <button className="btn  btn-primary theme-button" onClick={()=>getCategories(1)}>
-                                                <i className='fa-solid fa-magnifying-glass'/> Search</button>
+                                                <i className='fa-solid fa-magnifying-glass'/> {t("categorylist-order-search")}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -178,13 +178,13 @@ const CategoryList = () => {
                                     <table className={'my-table table table-hover table-striped table-bordered'}>
                                         <thead>
                                             <tr>
-                                                <th>SL</th>
-                                                <th>Name / Slug</th>
-                                                <th>Serial / Status</th>
-                                                <th>Photo</th>
-                                                <th>Created By</th>
-                                                <th>Created At</th>
-                                                <th>Action</th>
+                                                <th>{t("categorylist-index")}</th>
+                                                <th>{t("categorylist-nameslug")}</th>
+                                                <th>{t("categorylist-serialstatus")}</th>
+                                                <th>{t("categorylist-photo")}</th>
+                                                <th>{t("categorylist-createdby")}</th>
+                                                <th>{t("categorylist-createdat")}</th>
+                                                <th>{t("categorylist-action")}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -192,12 +192,12 @@ const CategoryList = () => {
                                                 <tr key={index}>
                                                     <td>{startFrom + index}</td>
                                                     <td>
-                                                        <p>Name: {category.name}</p>
-                                                        <p>Slug: {category.slug}</p>
+                                                        <p>{t("categorylist-name")}: {category.name}</p>
+                                                        <p>{t("categorylist-slug")}: {category.slug}</p>
                                                     </td>
                                                     <td>
-                                                        <p className={'text-theme'}>Serial: {category.serial}</p>
-                                                        <p className={'text-success'}>Status: {category.status}</p>
+                                                        <p className={'text-theme'}>{t("categorylist-serial")}: {category.serial}</p>
+                                                        <p className={'text-success'}>{t("categorylist-status")}: {category.status}</p>
                                                     </td>
                                                     <td>
                                                         <img 
@@ -208,8 +208,8 @@ const CategoryList = () => {
                                                     </td>
                                                     <td>{category.created_by}</td>
                                                     <td>
-                                                        <p><small>Created: {category.created_at}</small></p>
-                                                        <p><small>Updated: {category.updated_at}</small></p>
+                                                        <p><small>{t("categorylist-created")}: {category.created_at}</small></p>
+                                                        <p><small>{t("categorylist-updated")}: {category.updated_at}</small></p>
                                                     </td>
                                                     <td>
                                                         <button onClick={()=>handleDetailsModal(category)} className={'btn btn-sm btn-info my-1'}>
@@ -231,14 +231,14 @@ const CategoryList = () => {
                                     <CategoryPhotoModal
                                         show={modalPhotoShow}
                                         onHide={() => setModalPhotoShow(false)}
-                                        tittle={'Category Photo'}
+                                        tittle={t("categorylist-modal-photo")}
                                         size={''}
                                         photo={modalPhoto}
                                     />
                                     <CategoryDetailsModal
                                         show={modalShow}
                                         onHide={() => setModalShow(false)}
-                                        tittle={'Category Details'}
+                                        tittle={t("categorylist-modal-details")}
                                         size={''}
                                         category={category}
                                     />
@@ -253,10 +253,10 @@ const CategoryList = () => {
                                     totalItemsCount={totalItemsCount}
                                     pageRangeDisplayed={5}
                                     onChange={getCategories}
-                                    nextPageText={'Next'}
-                                    firstPageText={'First'}
-                                    prevPageText={'Previous'}
-                                    lastPageText={'Last'}
+                                    nextPageText={t("categorylist-page-next")}
+                                    firstPageText={t("categorylist-page-first")}
+                                    prevPageText={t("categorylist-page-previous")}
+                                    lastPageText={t("categorylist-page-last")}
                                     itemClass={'page-item'}
                                     linkClass={'page-link'}
                                 />

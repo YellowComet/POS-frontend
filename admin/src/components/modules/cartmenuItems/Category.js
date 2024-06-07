@@ -4,61 +4,8 @@ import { motion } from "framer-motion"
  import { getItems, getBgColor } from './logics/GetItems';
 import axios from 'axios';
 import Constants from '../../../Constants';
+import { useTranslation } from 'react-i18next';
 
-// const categories = [
-//     {
-//         id: 6,
-//         title: "Starter (Veg)",
-//         bg: "#B73E3E",
-//         category: "Starter1",
-//         leftradis : "9px"
-//     },
-//     {
-//         id: 9,
-//         title: "Starter (Non-Veg)",
-//         bg: "#5b45b0",
-//         category: "Starter2",
-//     },
-//     {
-//         id: 2,
-//         title: "Main Course",
-//         bg: "#7F167F",
-//         category: "mainCourse",
-//     },
-//     {
-//         id: 3,
-//         title: "Pizza",
-//         bg: "#1d2569",
-//         category: "Pizza",
-//         rightradis : "9px"
-//     },
-//     {
-//         id: 4,
-//         title: "Dessert",
-//         bg: "#3a56bd",
-//         category: "Dessert",
-//         bottomleftradis : "9px"
-//     },
-//     {
-//         id: 5,
-//         title: "Beverage",
-//         bg: "#735F32",
-//         category: "Beverage",
-//     },
-//     {
-//         id: 0,
-//         title: "Soups",
-//         bg: "#9C254D",
-//         category: "Soups",
-//     },
-//     {
-//         id: 7,
-//         title: "Rum",
-//         bg: "#285430",
-//         category: "Rum",
-//         bottomrightradis : "9px"
-//     },
-// ]
 
 const Category = () => {
     const [categoryDetails2, setCategoryDetails2] = useState();
@@ -67,6 +14,7 @@ const Category = () => {
     const [subCategoryList, setSubCategoryList] = useState([]);
     const [colorList, setColorList] = useState([]);
 
+    const { t } = useTranslation();
 
     const getCategoriesRef = useRef(() => {
         axios.get(`${Constants.BASE_URL}/get-category-list`).then(res=>{
@@ -116,7 +64,7 @@ const Category = () => {
                                 }} className='flex items-center justify-between cursor-pointer rounded'>
                                     <div className='flex flex-col items-start justify-between pl-4 py-3 font-bold h-[158px] categoryName'>
                                         <p>{curr.name}</p>
-                                         <small className='test-white font-semibold'>{getItems(curr.id, subCategoryList)}  items</small>
+                                         <small className='test-white font-semibold'>{getItems(curr.id, subCategoryList)}  {t("cart-numitems")}</small>
                                     </div>
                                     {
                                         id === curr.id && (<div className='pr-2 bg-black opacity-40 h-full-category'>
@@ -135,7 +83,7 @@ const Category = () => {
             <div className=' p-4 rowCat border-b border-black overflow-y-scroll scrollbar-hide' style={{
                 backgroundColor: "#0e1227"
             }}>
-                 {categoryDetails2?.length > 0 ? <CategoryDetails categoryDetails={categoryDetails2} /> : (<small className='text-[#818497]'>Select any category. </small>)}
+                 {categoryDetails2?.length > 0 ? <CategoryDetails categoryDetails={categoryDetails2} /> : (<small className='text-[#818497]'>{t("cart-selectcat")}. </small>)}
             </div>
 
         </>
