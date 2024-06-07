@@ -90,6 +90,8 @@
     "cart-ticket": "Ticket",
     "cart-noticket": "Sin Ticket",
     "cart-numitems": "Productos",
+    "cart-paidcorrect": "Pagado Correctamente",
+    "cart-returncorrect": "Devuelto Correctamente",
     "cart-selectcat": "Seleccione Categoría",
     "cart-button-home": "Home",
     "cart-button-cart": "Caja de Pago",
@@ -107,6 +109,21 @@
     "orders-subtotal": "Subtotal",
     "orders-date": "Fecha",
     "orders-actions": "Acciones",
-    "orders-noorders": "Sin Pedidos que Correspondan"
+    "orders-noorders": "Sin Pedidos que Correspondan",
+    "invoice-date": "Día",
+    "invoice-hour": "Hora",
+    "invoice-costumer": "Comprador",
+    "invoice-id": "Nº Factura",
+    "invoice-summary": "Resumen de Compra: ",
+    "invoice-product": "Productos: ",
+    "invoice-quantity": "Cantidad: ",
+    "invoice-price": "Precio ",
+    "invoice-total": "Total ",
+    "invoice-tax": "IVA ",
+    "invoice-subtotal": "Subtotal ",
+    "invoice-status": "Estado ",
+    "invoice-paid": "Pagado Con ",
+    "invoice-thanks": "Gracias por su Visita",
+    "invoice-print": "Imprimir Factura"
 
 }

@@ -4,11 +4,15 @@ import { useReactToPrint } from 'react-to-print';
 import Link from '../../../assets/img/link.png';
 import axios from 'axios';
 import Constants from '../../../Constants';
+import { useTranslation } from 'react-i18next';
 
 export default function Invoice({ closeInvoice, paymentMode, transId, total, subTotal, tax }) {
     const [open, setOpen] = useState(true)
     const componentRef = useRef();
     const [pedido, setPedido] = useState();
+
+    const { t } = useTranslation();
+
     const allEvents = () => {
         handlePrint();
         setOpen(false);
@@ -83,31 +87,31 @@ export default function Invoice({ closeInvoice, paymentMode, transId, total, sub
                                             <p >Teléfono : +34687263299 Fax:(503)1234567</p>
                                         </div>
                                         <div className='text-xs'>
-                                            <h6 className='flex'><p className='font-semibold'>Día</p>: {getDate()}</h6>
-                                            <h6 className='flex'><p className='font-semibold'>Hora</p>: {getTime()}</h6>
+                                            <h6 className='flex'><p className='font-semibold'>{t("invoice-date")}</p>: {getDate()}</h6>
+                                            <h6 className='flex'><p className='font-semibold'>{t("invoice-hour")}</p>: {getTime()}</h6>
                                         </div>
                                     </div>
                                     <div className='flex items-center justify-between pt-2'>
                                         <div className='text-xs'>
-                                            <h6><p className='font-semibold'>Comprador: </p></h6>
+                                            <h6><p className='font-semibold'>{t("invoice-costumer")}: </p></h6>
                                             {/* <p className='flex'>Customer name : <p className='pl-10'>{customer[0]?.name}</p></p> */}
                                             {/* <p className='flex'>Customer Phone : <p className='pl-8'>+91 {customer[0]?.phone}</p></p> */}
                                             {/* <p className=''>Customer email : sam@gmail.com</p> */}
                                         </div>
                                         <div className='text-xs'>
-                                            <h6 className='flex'><p className='font-semibold'>Nº Factura</p> : &nbsp; #{transId}</h6>
+                                            <h6 className='flex'><p className='font-semibold'>{t("invoice-id")}</p> : &nbsp; #{transId}</h6>
                                         </div>
                                     </div>
-                                    <h6 className='text-xs font-bold text-center pt-3'>Bienvenido a Diego Shop</h6>
+                                    <h6 className='text-xs font-bold text-center pt-3'>{t("invoice-summary")}</h6>
                                     <div className='mt-3 w-full'>
                                         <table style={{
                                             fontSize: "11px"
                                         }} className='font-normal divide-x divide-y divide-gray-300 '>
                                             <tr className='divide-x border-t border-gray-200 border-r border-l  divide-gray-300'>
-                                                <th className='px-2  text-center p-1'>Producto</th>
-                                                <th className='px-2  text-center p-1'>Cantidad</th>
-                                                <th className='px-2  text-center p-1'>Precio(€)</th>
-                                                <th className='px-2  text-center p-1'>Total(€)</th>
+                                                <th className='px-2  text-center p-1'>{t("invoice-product")}</th>
+                                                <th className='px-2  text-center p-1'>{t("invoice-quantity")}</th>
+                                                <th className='px-2  text-center p-1'>{t("invoice-price")}(€)</th>
+                                                <th className='px-2  text-center p-1'>{t("invoice-total")}(€)</th>
                                             </tr>
                                             {pedido?.map((curr, i) => ( 
                                                 <tr className='divide-x  divide-gray-300 border-b  border-gray-200'>
@@ -125,31 +129,30 @@ export default function Invoice({ closeInvoice, paymentMode, transId, total, sub
                                         <div></div>
                                         <div className='pr-4'>
                                             <div className='flex space-x-9'>
-                                                <p>Total : </p>
+                                                <p>{t("invoice-subtotal")}: </p>
                                                 <p> {total} €</p>
                                             </div>
                                             <div className='flex space-x-9'>
-                                                <p>IVA(%): </p>
+                                                <p>{t("invoice-tax")}(%): </p>
                                                 <p>21%</p>
                                             </div>
                                             <div className='flex space-x-8'>
-                                                <p>IVA(€): </p>
+                                                <p>{t("invoice-tax")}(€): </p>
                                                 <p> {tax.toFixed(2)} €</p>
                                             </div>
                                             <div className='flex space-x-5'>
-                                                <p>Subtotal :  </p>
+                                                <p>{t("invoice-total")} :  </p>
                                                 <p> {(subTotal).toFixed(2)} €</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div className='flex items-center justify-between pr-7 pt-3'>
                                         <p></p>
-                                        <p className='text-xs'>Status: <strong>Paid {paymentMode}</strong>. </p>
+                                        <p className='text-xs'>{t("invoice-status")}: <strong>{t("invoice-paid")} {paymentMode}</strong>. </p>
                                     </div>
                                 </div>
                                 <div className='flex flex-col pt-8 leading-snug'>
-                                    <small className=''>Please Contact for any queries realted to Invoice.</small>
-                                    <small className='font-medium'>THANKS YOU FOR YOUR VISIT.</small>
+                                    <small className='font-medium'>{t("invoice-thanks")}.</small>
                                 </div>
                                 <div className="mt-5 xs:mt-6">
                                     <button
@@ -157,7 +160,7 @@ export default function Invoice({ closeInvoice, paymentMode, transId, total, sub
                                         className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
                                         onClick={allEvents}
                                     >
-                                        Print Invoice
+                                        {t("invoice-print")}
                                     </button>
                                 </div>
                             </Dialog.Panel>
