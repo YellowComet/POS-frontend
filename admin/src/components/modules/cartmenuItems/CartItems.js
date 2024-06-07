@@ -101,7 +101,7 @@ const CartItems = () => {
                     Swal.fire({
                         position: "center",
                         icon: "success",
-                        title: "Devolución Correcta",
+                        title: t("cart-returncorrect"),
                         showConfirmButton: false,
                         toast:true,
                         timer: 1500
@@ -115,7 +115,7 @@ const CartItems = () => {
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Has Pagado Correctamente",
+                    title: t("cart-paidcorrect"),
                     showConfirmButton: false,
                     toast:true,
                     timer: 1500

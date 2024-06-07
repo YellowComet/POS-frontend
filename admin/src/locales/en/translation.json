@@ -90,6 +90,8 @@
     "cart-ticket": "Ticket",
     "cart-noticket": "No Ticket",
     "cart-numitems": "Products",
+    "cart-paidcorrect": "Paid Successfully",
+    "cart-returncorrect": "Returned Successfully",
     "cart-selectcat": "Select Any Category",
     "cart-button-home": "Home",
     "cart-button-cart": "Cart",
@@ -107,6 +109,21 @@
     "orders-subtotal": "Subtotal",
     "orders-date": "Date",
     "orders-actions": "Actions",
-    "orders-noorders": "No Orders Match"
+    "orders-noorders": "No Orders Match",
+    "invoice-date": "Date",
+    "invoice-hour": "Hour",
+    "invoice-costumer": "Costumer",
+    "invoice-id": "Invoice Number",
+    "invoice-summary": "Summary: ",
+    "invoice-product": "Products: ",
+    "invoice-quantity": "Quantity: ",
+    "invoice-price": "Price ",
+    "invoice-total": "Total ",
+    "invoice-tax": "Tax ",
+    "invoice-subtotal": "Subtotal ",
+    "invoice-status": "Status",
+    "invoice-paid": "Paid By ",
+    "invoice-thanks": "THANKS YOU FOR YOUR VISIT",
+    "invoice-print": "Print Invoice"
 
 }
