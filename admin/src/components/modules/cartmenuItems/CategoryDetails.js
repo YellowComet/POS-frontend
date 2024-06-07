@@ -84,7 +84,6 @@ const CategoryDetails = ({ categoryDetails }) => {
                                 </div>
                             </motion.div>
                         
-                        
                         </>)
                         }
                     </>     

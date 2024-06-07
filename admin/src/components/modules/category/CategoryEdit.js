@@ -80,13 +80,13 @@ const CategoryEdit = () => {
     
     return (
         <>
-            <PageHead title={'Category'} title2={'Edit Category'} pageTitle={'Edit Category'}/>
+            <PageHead title={t("categoryedit-tittle")} title2={t("categoryedit-tittle2")} pageTitle={t("categoryedit-head")}/>
             <div className="row">
                 <div className="col-md-12">
                     <div className="card">
                     <div className="card-header">
                         <CardHeader 
-                            title={'Edit Category'}
+                            title={t("categoryedit-tittle2")}
                             link={'/category'}
                             icon={'fa-list'}
                             button_text={'List'}
@@ -96,7 +96,7 @@ const CategoryEdit = () => {
                             <div className="row">
                                 <div className="col-md-6">
                                     <label className="w-100 mt-4">
-                                        <p>Name</p>
+                                        <p>{t("categorylist-name")}</p>
                                         <input
                                             className={errors.name !== undefined ? 'form-control mt-2 is-invalid' : 'form-control mt-2'}
                                             type={'text'}
@@ -112,7 +112,7 @@ const CategoryEdit = () => {
                                 </div>
                                 <div className="col-md-6">
                                     <label className="w-100 mt-4">
-                                        <p>Slug</p>
+                                        <p>{t("categorylist-slug")}</p>
                                         <input
                                             className={errors.slug !== undefined ? 'form-control mt-2 is-invalid' : 'form-control mt-2'}
                                             type={'text'}
@@ -128,7 +128,7 @@ const CategoryEdit = () => {
                                 </div>
                                 <div className="col-md-6">
                                     <label className="w-100 mt-4">
-                                        <p>Serial</p>
+                                        <p>{t("categorylist-serial")}</p>
                                         <input
                                             className={errors.serial !== undefined ? 'form-control mt-2 is-invalid' : 'form-control mt-2'}
                                             type={'number'}
@@ -144,7 +144,7 @@ const CategoryEdit = () => {
                                 </div>
                                 <div className="col-md-6">
                                     <label className="w-100 mt-4">
-                                        <p>Status</p>
+                                        <p>{t("categorylist-status")}</p>
                                         <select
                                             className={errors.status !== undefined ? 'form-control mt-2 is-invalid' : 'form-control mt-2'}
                                             name={'status'}
@@ -152,9 +152,9 @@ const CategoryEdit = () => {
                                             onChange={handleInput}
                                             placeholder={'Select Category Status'}
                                         >
-                                            <option disabled={true}>Select Category Status</option>
-                                            <option value={1} selected="selected">Active</option>
-                                            <option value={0}>Inactive</option>
+                                            <option disabled={true}>{t("category-status-select")}</option>
+                                            <option value={1} selected="selected">{t("category-status-active")}</option>
+                                            <option value={0}>{t("category-status-inactive")}</option>
                                         </select>
                                         <p className="login-error-msg">
                                         <small>{errors.statusv !== undefined ? errors.status[0] : null}</small>
@@ -163,7 +163,7 @@ const CategoryEdit = () => {
                                 </div>
                                 <div className="col-md-6">
                                     <label className="w-100 mt-4">
-                                        <p>Description</p>
+                                        <p>{t("category-description")}</p>
                                         <textarea
                                             className={errors.description !== undefined ? 'form-control mt-2 is-invalid' : 'form-control mt-2'}
                                             name={'description'}
@@ -178,7 +178,7 @@ const CategoryEdit = () => {
                                 </div>
                                 <div className="col-md-6">
                                     <label className="w-100 mt-4">
-                                        <p>Photo</p>
+                                        <p>{t("category-photo")}</p>
                                         <input
                                             className={errors.photo !== undefined ? 'form-control mt-2 is-invalid' : 'form-control mt-2'}
                                             type={'file'}
@@ -205,7 +205,7 @@ const CategoryEdit = () => {
                                         <div className="col-md-4">
                                             <div className="d-grid mt-4">
                                                 <button className="btn btn-primary theme-button" onClick={handleCategoryUpdate} 
-                                                dangerouslySetInnerHTML={{__html: isLoading ? '<span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Loading...' : 'Update Category'}}/>
+                                                dangerouslySetInnerHTML={{__html: isLoading ? '<span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Loading...' : t("categoryedit-button")}}/>
                                             </div>
                                         </div>
                                     </div>

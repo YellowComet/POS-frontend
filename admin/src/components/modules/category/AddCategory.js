@@ -190,7 +190,7 @@ const AddCategory = () => {
                                         <div className="col-md-4">
                                             <div className="d-grid mt-4">
                                                 <button className="btn btn-primary theme-button" onClick={handleCategoryCreate} 
-                                                dangerouslySetInnerHTML={{__html: isLoading ? '<span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Loading...' : 'Add Category'}}/>
+                                                dangerouslySetInnerHTML={{__html: isLoading ? '<span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Loading...' : t("category-addbutton")}}/>
                                             </div>
                                         </div>
                                     </div>

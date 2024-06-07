@@ -11,7 +11,8 @@ import axios from 'axios';
 import Constants from '../../../Constants';
 import { setFalse } from "../../store/returnSlice"
 import DiscountModal from '../../partials/modals/DiscountModal';
-
+import { useTranslation } from 'react-i18next';
+import PageHead from '../../partials/PageHead';
 
 const CartItems = () => {
     const dispatch = useDispatch();
@@ -40,6 +41,8 @@ const CartItems = () => {
     const totalConDescuentoPercent = totalConDescuentoNum - discount;
     const tax = (21 / 100) * total;
     const subTotal = totalConDescuentoPercent + tax;
+
+    const { t } = useTranslation();
 
     const inCreament = (data) => {
         const { id, serial } = data;
@@ -133,9 +136,10 @@ const CartItems = () => {
 
     return (
         <div>
+            <PageHead title={t("")} title2={t("")} pageTitle={t("cart-head")}/>
             <ToastContainer />
             <ScrollableFeed >
-                {isReturn ? <p className='text-white text-center mt-2'>DEVOLUCIÓN</p> : null}
+                {isReturn ? <p className='text-white text-center mt-2'>{t("cart-return")}</p> : null}
                 <div className='flex flex-col justify-between text-white bg-[#0e1227]'>
                     <motion.div transition={{ duration: 0.5 }} exit={{ y: "50%", opacity: 0 }} className='flex flex-col px-4 py-4 space-y-1 h-[55vh] overflow-y-scroll scrollbar-hide'>
 
@@ -191,7 +195,7 @@ const CartItems = () => {
                                     <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8 text-[#474c54]">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                                     </svg>
-                                    <small className='text-[#474c54]'>No items.</small>
+                                    <small className='text-[#474c54]'>{t("cart-noitems")}.</small>
                                 </div>
                             </>
                         )}
@@ -200,42 +204,42 @@ const CartItems = () => {
                         <div>
                             <div className='grid grid-cols-3 gap-0'>
                                 <div  onClick={()=>handleDiscount()} className='bg-[#151a34] text-center p-2 text-sm font-semibold hover:bg-[#1f2544] cursor-pointer border border-black rounded-tl-lg'>
-                                    <button className='buttonCart btn btn-primary'>Discount</button>
+                                    <button className='buttonCart btn btn-primary'>{t("cart-discount")}</button>
                                 </div>
                                 <div onClick={handlePaymentCash} className='bg-[#151a34] text-center p-2 text-sm font-semibold hover:bg-[#1f2544] cursor-pointer border border-black'>
-                                    <button className='buttonCart btn btn-primary'>Cash</button>
+                                    <button className='buttonCart btn btn-primary'>{t("cart-cash")}</button>
                                 </div>
                                 <div className='bg-[#151a34] text-center p-2 text-sm font-semibold hover:bg-[#1f2544] cursor-pointer border border-black rounded-tr-lg'>
-                                    <button className='buttonCart btn btn-primary' onClick={handlePaymentCard} >UPI</button>
+                                    <button className='buttonCart btn btn-primary' onClick={handlePaymentCard} >{t("cart-card")}</button>
                                 </div>
                             </div>
                             <div className='flex flex-col pl-8 pr-8 py-2 space-y-2'>
                                 {isReturn ?  
                                 (
                                 <>
-                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Pagado</p><p>{returnTotal.toFixed(2)}€</p></div>
-                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Total</p><p>{subTotal.toFixed(2)}€</p></div>
-                                    <div className='flex flex-row items-center justify-between text-sm font-bold '><p>Devolución</p><p>{(returnTotal - subTotal).toFixed(2)}€</p></div>
+                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>{t("cart-paid")}</p><p>{returnTotal.toFixed(2)}€</p></div>
+                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>{t("cart-total")}</p><p>{subTotal.toFixed(2)}€</p></div>
+                                    <div className='flex flex-row items-center justify-between text-sm font-bold '><p>{t("cart-return2")}</p><p>{(returnTotal - subTotal).toFixed(2)}€</p></div>
                                 </>
                                 ):(
                                  <>
-                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Tax 21%</p><p>{tax.toFixed(2)}€</p></div>
-                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Subtotal</p><p>{total.toFixed(2)}€</p></div>
-                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Descuento (%)</p><p>{discountPercent}%</p></div>
-                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>Descuento (€)</p><p>{discountNum} €</p></div>
-                                    <div className='flex flex-row items-center justify-between text-sm font-bold '><p>Total</p><p>{subTotal.toFixed(2)}€</p></div>
+                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>{t("cart-tax")} 21%</p><p>{tax.toFixed(2)}€</p></div>
+                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>{t("cart-subtotal")}</p><p>{total.toFixed(2)}€</p></div>
+                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>{t("cart-discount")} (%)</p><p>{discountPercent}%</p></div>
+                                    <div className='flex flex-row items-center justify-between text-xs font-bold text-gray-600 '><p>{t("cart-discount")} (€)</p><p>{discountNum} €</p></div>
+                                    <div className='flex flex-row items-center justify-between text-sm font-bold '><p>{t("cart-total")}</p><p>{subTotal.toFixed(2)}€</p></div>
                                 </>
                                 )}
                                 {payment && (
-                                    <p className='text-center text-xs font-semibold text-green-500'>Payment done. you want ticket?<small className='font-normal text-white'> Now you can place order.</small> </p>
+                                    <p className='text-center text-xs font-semibold text-green-500'>{t("cart-paymentdone")}</p>
                                 )}
                             </div>
                         </div>
                     </div>
                     <div className='text-center sm:flex-none space-x-4  p-2 text-sm font-semibold cursor-pointer'>
                         {/* <div className='bg-[#151a34]'> */}
-                            <button onClick={showInvoice} className={payment ? ' py-4 text-center btn btn-success' : 'btn btn-danger py-4 text-center cursor-not-allowed border'} >Ticket</button>
-                            <button onClick={finishPay}  className={payment ? ' py-4 text-center btn btn-success' : 'btn btn-danger py-4 text-center cursor-not-allowed border'} >Sin Ticket</button>
+                            <button onClick={showInvoice} className={payment ? ' py-4 text-center btn btn-success' : 'btn btn-danger py-4 text-center cursor-not-allowed border'} >{t("cart-ticket")}</button>
+                            <button onClick={finishPay}  className={payment ? ' py-4 text-center btn btn-success' : 'btn btn-danger py-4 text-center cursor-not-allowed border'} >{t("cart-noticket")}</button>
                         {/* </div> */}
                     </div>
                 </div>

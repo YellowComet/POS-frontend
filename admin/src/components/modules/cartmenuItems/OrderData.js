@@ -7,7 +7,8 @@ import Invoice from './Invoice'
 import { useDispatch } from "react-redux"
 import { add, removeAll } from "../../store/cartSlice"
 import { setTrue, setId, setTotalPagado } from "../../store/returnSlice"
-
+import { useTranslation } from 'react-i18next';
+import PageHead from '../../partials/PageHead';
 import { useNavigate } from "react-router-dom";
 
 export default function OrderData() {
@@ -21,6 +22,8 @@ export default function OrderData() {
     const [itemsCountPerPage, setItemsCountPerPage] = useState(0);
     const [totalItemsCount, setTotalItemsCount] = useState(1);
     const [activePage, setActivePage] = useState(1);
+
+    const { t } = useTranslation();
 
     const [input, setInput] = useState({
         order_by : 'transaction_id',
@@ -72,15 +75,13 @@ export default function OrderData() {
         setInvoiceShow(false);
     }
     
-    // useEffect(()=>{
-    //     getPedidos();
-    // }, [])
-    
     return (
+        <>
+        <PageHead title={t("")} title2={t("")} pageTitle={t("orders-head")}/>
         <div className="px-4 sm:px-6 lg:px-8">
             <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
-                    <h1 className="text-xl font-semibold text-center text-white pb-2">HISTORIAL DE PEDIDOS</h1>
+                    <h1 className="text-xl font-semibold text-center text-white pb-2">{t("orders-history")}</h1>
                 </div>
             </div>
             <div className="sm:flex sm:items-center">
@@ -88,20 +89,20 @@ export default function OrderData() {
                     <div className='row align-items-center'>
                         <div className='col'>
                             <label className='w-100 search-label text-white text-center'>
-                                <p>Factura</p>
+                                <p>{t("orders-orderticket")}</p>
                                 <input
                                     className="form-control form-control-sm"
                                     type={'search'}
                                     name={'search'}
                                     value={input.search}
                                     onChange={handleInput}
-                                    placeholder={'Search...'}
+                                    placeholder={t("categorylist-search")}
                                 />
                             </label>
                         </div>
                         <div className='col'>
                             <label className='w-100  text-white text-center'>
-                                <p>Páginas</p>
+                                <p>{t("orders-pages")}</p>
                                 <select
                                      className="form-select form-select-sm"
                                     name={'per_page'}
@@ -119,17 +120,17 @@ export default function OrderData() {
                         <div className='col'>
                             <div className="d-grid">
                                 <button className="btn  btn-primary theme-button" onClick={()=>getPedidos(1)}>
-                                    <i className='fa-solid fa-magnifying-glass'/> Search</button>
+                                    <i className='fa-solid fa-magnifying-glass'/> {t("categorylist-order-search")}</button>
                             </div>
                         </div>
                         <div className='col'>
                             <div onClick={handleRemoveCart} className="d-grid">
-                                <Link className='inline-flex items-center btn btn-warning justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white shadow-sm sm:w-auto text-decoration-none' to="/">Home</Link>
+                                <Link className='inline-flex items-center btn btn-warning justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white shadow-sm sm:w-auto text-decoration-none' to="/">{t("cart-button-home")}</Link>
                             </div>
                         </div>
                         <div className='col'>
                             <div onClick={handleRemoveCart} className="d-grid">
-                                <Link className='inline-flex items-center btn btn-danger justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white shadow-sm sm:w-auto text-decoration-none' to="/cartmenu">Cart</Link>
+                                <Link className='inline-flex items-center btn btn-danger justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white shadow-sm sm:w-auto text-decoration-none' to="/cartmenu">{t("cart-button-cart")}</Link>
                             </div>
                         </div>
                     </div>
@@ -143,31 +144,31 @@ export default function OrderData() {
                                 <thead className="bg-[#060c18]">
                                     <tr>
                                         <th scope="col" className="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">
-                                            Número de Compra (#)
+                                            {t("orders-num")} (#)
                                         </th>
                                         <th scope="col" className="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">
-                                            Comprador
+                                            {t("orders-buyer")}
                                         </th>
                                         <th colspan="3" scope="col" className="px-3 py-3.5 text-center text-sm font-semibold text-white col-2">
-                                            Productos
+                                            {t("orders-products")}
                                         </th>
                                         <th scope="col" className="px-3 py-3.5 text-center text-sm font-semibold text-white">
-                                            Total Productos
+                                            {t("orders-totalprods")}
                                         </th>
                                         <th scope="col" className="px-3 py-3.5 text-center text-sm font-semibold text-white">
-                                            Forma Pago
+                                            {t("orders-payment")}
                                         </th>
                                         <th scope="col" className="px-3 py-3.5 text-center text-sm font-semibold text-white">
-                                            Total
+                                            {t("orders-total")}
                                         </th>
                                         <th scope="col" className="px-3 py-3.5 text-center text-sm font-semibold text-white">
-                                            SubTotal
+                                            {t("orders-subtotal")}
                                         </th>
                                         <th scope="col" className="px-3 py-3.5 text-center text-sm font-semibold text-white">
-                                            Fecha
+                                            {t("orders-date")}
                                         </th>
                                         <th scope="col" className="px-3 py-3.5 text-center text-sm font-semibold text-white">
-                                            Acciones
+                                            {t("orders-actions")}
                                         </th>
                                     </tr>
                                 </thead>
@@ -217,7 +218,7 @@ export default function OrderData() {
                                         tax={tax}
                             />} 
 
-                            {pedidos.length === 0 && (<p className="text-white text-center mt-4 mb-4">Sin Pedidos que Correspondan.</p>)}
+                            {pedidos.length === 0 && (<p className="text-white text-center mt-4 mb-4">{t("orders-noorders")}.</p>)}
                             <div className='card-footer d-flex justify-content-center'>
                             <nav className='pagination-sm'>
                                 <Pagination
@@ -240,5 +241,6 @@ export default function OrderData() {
                 </div>
             </div>
         </div>
+        </>
     )
 }
