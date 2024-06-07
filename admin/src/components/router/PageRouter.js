@@ -13,6 +13,7 @@ import SupplierAdd from '../modules/suppliers/SupplierAdd';
 import SupplierList from '../modules/suppliers/SupplierList';
 import CartMenu from '../modules/CartMenu';
 import Orders from '../layout/Orders';
+import BarCode from '../bar_code/BarCode';
 
 const PageRouter = createHashRouter([
     {
@@ -58,7 +59,11 @@ const PageRouter = createHashRouter([
         {
           path: '/error-500',
           element: <Error500 />,
-        }
+        },
+        {
+          path: '/barcode',
+          element: <BarCode />,
+        },
       ],
     },
     {

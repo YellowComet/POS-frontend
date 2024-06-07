@@ -17,6 +17,7 @@
     "sidebar-utilities": "Utilities",
     "sidebar-cart": "Cart",
     "sidebar-orders": "Orders",
+    "sidebar-barcode": "Generate BarCode",
     "dashboard-tittle": "Dashboard",
     "dashboard-tittle2": "Earning Information",
     "dashboard-head": "Dashboard",
@@ -124,6 +125,9 @@
     "invoice-status": "Status",
     "invoice-paid": "Paid By ",
     "invoice-thanks": "THANKS YOU FOR YOUR VISIT",
-    "invoice-print": "Print Invoice"
+    "invoice-print": "Print Invoice",
+    "barcode-tittle": "Barcode",
+    "barcode-tittle2": "Generate & Print",
+    "barcode-head": "Barcode Generator"
 
 }

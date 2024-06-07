@@ -17,6 +17,7 @@
     "sidebar-utilities": "Utilidades",
     "sidebar-cart": "Caja de Pago",
     "sidebar-orders": "Pedidos",
+    "sidebar-barcode": "Codigo de Barras",
     "dashboard-tittle": "Panel de Control",
     "dashboard-tittle2": "Información de Ventas",
     "dashboard-head": "Panel de Control",
@@ -124,6 +125,9 @@
     "invoice-status": "Estado ",
     "invoice-paid": "Pagado Con ",
     "invoice-thanks": "Gracias por su Visita",
-    "invoice-print": "Imprimir Factura"
+    "invoice-print": "Imprimir Factura",
+    "barcode-tittle": "Codigo de Barras",
+    "barcode-tittle2": "Generar e Imprimir",
+    "barcode-head": "Generador Codigo de Barras"
 
 }

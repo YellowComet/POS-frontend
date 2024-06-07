@@ -103,6 +103,7 @@ const Sidebar = () => {
                     <h6 className="collapse-header">{t("sidebar-components")}:</h6>
                     <Link className="collapse-item" to="/cartmenu">{t("sidebar-cart")}</Link>
                     <Link className="collapse-item" to="/orders">{t("sidebar-orders")}</Link>
+                    <Link className="collapse-item" to="/barcode">{t("sidebar-barcode")}</Link>
                 </div>
             </div>
         </li>
