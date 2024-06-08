@@ -122,3 +122,23 @@ a {
     position: absolute;
   }
 }
+
+.print-area{
+  box-shadow: 0 0 10px silver;
+  margin: 25px auto 25px auto;
+  display: flex;
+  flex-wrap: wrap;
+  .bar-code-items{
+    width: 50%;
+    padding: 18px;
+    text-align: center;
+    border: 1px solid silver;
+    height: fit-content;
+    .barcode{
+      svg{
+        width: 100%;
+      }
+    }
+  }
+}
+

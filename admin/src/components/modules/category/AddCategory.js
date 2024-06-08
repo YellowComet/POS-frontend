@@ -24,6 +24,7 @@ const AddCategory = () => {
         }
         setInput(prevState => ({...prevState, [e.target.name] : e.target.value}))
     }
+    
     const handlePhoto = (e) => {
         let file = e.target.files[0]
         let reader = new FileReader()

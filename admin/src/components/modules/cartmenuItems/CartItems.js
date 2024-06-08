@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { remove, removeAll, selectTotal, quantityTotal, sum, sub } from '../../store/cartSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -13,6 +13,7 @@ import { setFalse } from "../../store/returnSlice"
 import DiscountModal from '../../partials/modals/DiscountModal';
 import { useTranslation } from 'react-i18next';
 import PageHead from '../../partials/PageHead';
+// import useScanDetection from 'use-scan-detection';
 
 const CartItems = () => {
     const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const CartItems = () => {
     const returnTotal = useSelector(state => state.return.totalPagado);
     const [modalShow, setModalShow] = useState(false);
 
+    // const {barCode, setBarCode} = useState('');
     const cartTotal = useSelector(quantityTotal);
     const total = useSelector(selectTotal);
     const [totalFinal, setTotalFinal] = useState(0);
@@ -43,6 +45,15 @@ const CartItems = () => {
     const subTotal = totalConDescuentoPercent + tax;
 
     const { t } = useTranslation();
+
+    // useScanDetection({
+    //     onComplete: setBarCode,
+    //     minLength: 2,
+    // });
+
+    // useEffect(() => {
+    //     console.log(barCode)
+    // }, [barCode]);
 
     const inCreament = (data) => {
         const { id, serial } = data;
@@ -142,7 +153,6 @@ const CartItems = () => {
                 {isReturn ? <p className='text-white text-center mt-2'>{t("cart-return")}</p> : null}
                 <div className='flex flex-col justify-between text-white bg-[#0e1227]'>
                     <motion.div transition={{ duration: 0.5 }} exit={{ y: "50%", opacity: 0 }} className='flex flex-col px-4 py-4 space-y-1 h-[55vh] overflow-y-scroll scrollbar-hide'>
-
                         {cart.length > 0 ? (
                             <>
                                 <div className=''>

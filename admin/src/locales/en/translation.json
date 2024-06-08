@@ -128,6 +128,12 @@
     "invoice-print": "Print Invoice",
     "barcode-tittle": "Barcode",
     "barcode-tittle2": "Generate & Print",
-    "barcode-head": "Barcode Generator"
+    "barcode-head": "Barcode Generator",
+    "barcode-selectCategory": "Select Category",
+    "barcode-selectProduct": "Select Product",
+    "barcode-button": "Search",
+    "barcode-price": "Price",
+    "barcode-print": "Print BarCodes"
+
 
 }
